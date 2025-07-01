@@ -6,7 +6,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Welcome to mumuksha')),
+      appBar: AppBar(title: Text('Welcome to dabite')),
       body: Center(child: Text('Your meal plan goes here!')),
     );
   }

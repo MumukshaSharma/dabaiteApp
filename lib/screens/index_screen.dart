@@ -43,7 +43,7 @@ class _IndexScreenState extends State<IndexScreen> {
                     child: Column(
                       children: [
                         const Text(
-                          'Welcome to mumuuu',
+                          'Welcome to dabite',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

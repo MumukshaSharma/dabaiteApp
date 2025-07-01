@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './home_screen.dart';
+import './index_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController phoneController = TextEditingController();
@@ -95,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => const HomeScreen()),
+                          MaterialPageRoute(builder: (context) => IndexScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
