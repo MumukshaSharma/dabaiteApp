@@ -6,6 +6,8 @@ void main() {
 }
 
 class DabiteApp extends StatelessWidget {
+  const DabiteApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
