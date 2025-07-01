@@ -96,11 +96,12 @@ class KitchensSection extends StatelessWidget {
 
           // Grid
           GridView.count(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+  shrinkWrap: true,
+  physics: NeverScrollableScrollPhysics(),
+  crossAxisCount: 2,
+  crossAxisSpacing: 10,
+  mainAxisSpacing: 10,
+  childAspectRatio: 3 / 4, // ✅ THIS makes sure your images get space
             children: kitchens.map((kitchen) {
               return Container(
   height: 180, // ✅ Set a fixed height for card
