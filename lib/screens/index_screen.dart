@@ -16,7 +16,7 @@ class _IndexScreenState extends State<IndexScreen> {
       _selectedIndex = index;
     });
 
-    // Handle navigation if needed
+    // TODO: Handle navigation if needed
   }
 
   @override
@@ -25,7 +25,10 @@ class _IndexScreenState extends State<IndexScreen> {
       backgroundColor: const Color.fromARGB(255, 240, 232, 199),
       body: Column(
         children: [
-          TopBar(isVeg: isVeg, setIsVeg: (val) => setState(() => isVeg = val)),
+          TopBar(
+            isVeg: isVeg,
+            setIsVeg: (val) => setState(() => isVeg = val),
+          ),
 
           Expanded(
             child: SingleChildScrollView(
@@ -66,35 +69,39 @@ class _IndexScreenState extends State<IndexScreen> {
         ],
       ),
 
-      // ✅ Customized Bottom Navigation Bar
+      // ✅ Custom Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: const Color.fromARGB(255, 39, 44, 23), // Active color
-        unselectedItemColor: const Color.fromARGB(255, 91, 102, 72), // Inactive color
+        selectedItemColor: const Color.fromARGB(255, 39, 44, 23),
+        unselectedItemColor: const Color.fromARGB(255, 91, 102, 72),
         selectedLabelStyle: const TextStyle(
           fontWeight: FontWeight.bold,
-          fontFamily: 'Poppins', // Optional: customize your font
+          fontFamily: 'Poppins',
         ),
         unselectedLabelStyle: const TextStyle(
           fontWeight: FontWeight.normal,
-          fontFamily: 'Poppins', // Optional
+          fontFamily: 'Poppins',
         ),
-        items: const [
-          // Home icon with custom color
+        items: [
+          // ✅ Custom Home Icon from assets
           BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant, color: Color.fromARGB(255, 39, 44, 23)),
+            icon: Image.asset(
+              'assets/icons/homess.png',
+              width: 24,
+              height: 24,
+            ),
             label: 'Home',
           ),
 
-          // Meal Deal with NO icon
-          BottomNavigationBarItem(
-            icon: SizedBox.shrink(), // Hides the icon
-            label: 'meal deal',
+          // ✅ Meal Deal without icon
+          const BottomNavigationBarItem(
+            icon: SizedBox.shrink(),
+            label: 'Meal Deal',
           ),
 
-          // Orders (default receipt icon)
-          BottomNavigationBarItem(
+          // ✅ Orders
+          const BottomNavigationBarItem(
             icon: Icon(Icons.receipt),
             label: 'Orders',
           ),
