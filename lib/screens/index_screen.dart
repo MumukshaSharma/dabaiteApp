@@ -99,7 +99,7 @@ class _IndexScreenState extends State<IndexScreen> {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
-                    // Navigate to subscription screen if needed
+                    // Optional: Navigate to subscription page
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
@@ -125,49 +125,42 @@ class _IndexScreenState extends State<IndexScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 232, 199),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 80),
-            child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TopBar(
+              isVeg: isVeg,
+              setIsVeg: (val) => setState(() => isVeg = val),
+            ),
+            const SizedBox(height: 12),
+            KitchensSection(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
               child: Column(
-                children: [
-                  const SizedBox(height: 12),
-                  KitchensSection(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24),
-                    child: Column(
-                      children: const [
-                        Text(
-                          'Welcome to dabite',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 49, 57, 39),
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Delicious homemade meals delivered fresh to your door',
-                          style: TextStyle(
-                            color: Color(0xFFA3B18A),
-                            fontSize: 14,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                children: const [
+                  Text(
+                    'Welcome to dabite',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 49, 57, 39),
                     ),
                   ),
-                  const SizedBox(height: 80),
+                  SizedBox(height: 8),
+                  Text(
+                    'Delicious homemade meals delivered fresh to your door',
+                    style: TextStyle(
+                      color: Color(0xFFA3B18A),
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),
-          ),
-          TopBar(
-            isVeg: isVeg,
-            setIsVeg: (val) => setState(() => isVeg = val),
-          ),
-        ],
+            const SizedBox(height: 80),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
