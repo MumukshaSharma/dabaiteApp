@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '/widgets/top_bar.dart';
 import '/widgets/kitchens_section.dart';
 
-
 class IndexScreen extends StatefulWidget {
   @override
   _IndexScreenState createState() => _IndexScreenState();
@@ -56,8 +55,7 @@ class _IndexScreenState extends State<IndexScreen> {
             ),
             const SizedBox(height: 12),
 
-            // "Specially for You" Section
-
+            // You can add "Specially for You" section here if needed
 
             const SizedBox(height: 12),
             KitchensSection(),
@@ -113,13 +111,13 @@ class _IndexScreenState extends State<IndexScreen> {
             ),
             label: 'Home',
           ),
-          const BottomNavigationBarItem(
-            icon: SizedBox.shrink(),
-            label: 'Meal Deal',
+          BottomNavigationBarItem(
+            icon: Icon(Icons.subscriptions), // Subscription icon
+            label: 'Subscribe',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.receipt),
-            label: 'Orders',
+          BottomNavigationBarItem(
+            icon: Icon(Icons.kitchen), // Kitchen icon
+            label: 'Kitchens',
           ),
         ],
       ),
