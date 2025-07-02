@@ -7,7 +7,7 @@ class Kitchen {
   final String deliveryTime;
   final String emoji;
   final List<Color> gradient;
-  final String imagePath; // ✅ image path from assets
+  final String imagePath; // ✅ Only this is needed
 
   Kitchen({
     required this.name,
@@ -16,7 +16,7 @@ class Kitchen {
     required this.deliveryTime,
     required this.emoji,
     required this.gradient,
-    required this.imagePath,
+    required this.imagePath, // ✅ not 'images'
   });
 }
 
@@ -67,7 +67,6 @@ Kitchen(
       padding: EdgeInsets.all(16),
       child: Column(
         children: [
-          // Header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -94,41 +93,33 @@ Kitchen(
             ],
           ),
           SizedBox(height: 12),
-
-          // Grid
           GridView.count(
-  shrinkWrap: true,
-  physics: NeverScrollableScrollPhysics(),
-  crossAxisCount: 2,
-  crossAxisSpacing: 10,
-  mainAxisSpacing: 10,
-  childAspectRatio: 3 / 4, // ✅ THIS makes sure your images get space
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 3 / 4,
             children: kitchens.map((kitchen) {
               return Container(
-  height: 180, // ✅ Set a fixed height for card
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(12),
-    boxShadow: [
-      BoxShadow(color: Colors.black12, blurRadius: 2),
-    ],
-  ),
-  child: Stack(
-    children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Opacity(
-          opacity: 0.8, // ✅ adjust to your liking
-          child: Image.asset(
-            kitchen.imagePath,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
-        ),
-      ),
-      // ... rest remains unchanged
-
-                    // ✅ Gradient Overlay
+                height: 180,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(color: Colors.black12, blurRadius: 2),
+                  ],
+                ),
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        kitchen.imagePath,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -139,8 +130,6 @@ Kitchen(
                         ),
                       ),
                     ),
-
-                    // ✅ Content
                     Padding(
                       padding: const EdgeInsets.all(12),
                       child: Column(
@@ -156,15 +145,18 @@ Kitchen(
                           Text(
                             kitchen.name,
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: Color(0xFF4E6746)),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color(0xFF4E6746),
+                            ),
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             kitchen.specialty,
                             style: TextStyle(
-                                fontSize: 12, color: Color(0xFF90A97D)),
+                              fontSize: 12,
+                              color: Color(0xFF90A97D),
+                            ),
                             overflow: TextOverflow.ellipsis,
                           ),
                           SizedBox(height: 6),
@@ -173,23 +165,28 @@ Kitchen(
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.star, color: Colors.amber, size: 14),
+                                  Icon(Icons.star,
+                                      color: Colors.amber, size: 14),
                                   Text(
                                     '${kitchen.rating}',
                                     style: TextStyle(
-                                        color: Color(0xFF4E6746),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500),
+                                      color: Color(0xFF4E6746),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Icon(Icons.timer, size: 14, color: Colors.grey),
+                                  Icon(Icons.timer,
+                                      size: 14, color: Colors.grey),
                                   Text(
                                     kitchen.deliveryTime,
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey),
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -202,7 +199,7 @@ Kitchen(
                 ),
               );
             }).toList(),
-          )
+          ),
         ],
       ),
     );
