@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'student_plan_page.dart'; // ✅ works from sibling files
+
 
 const Color kelp = Color.fromARGB(255, 36, 41, 5);
 const Color canary = Color(0xFFFFF95F);
@@ -105,7 +107,7 @@ class _StudentPlanPageState extends State<StudentPlanPage> {
               padding: const EdgeInsets.all(12),
               child: Text(
                 '${thali['day']} Special Thali\n${thali['menu']}',
-                style: TextStyle(color: kelp, fontSize: 14),
+                style: TextStyle(color: Color.fromARGB(255, 36, 41, 5), fontSize: 14),
               ),
             )
           ],
@@ -123,7 +125,7 @@ class _StudentPlanPageState extends State<StudentPlanPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
-            BoxShadow(color: Colors.black12, blurRadius: 4)
+            BoxShadow(color: Color.fromARGB(255, 36, 41, 5), blurRadius: 4)
           ],
         ),
         child: Row(
@@ -141,13 +143,13 @@ class _StudentPlanPageState extends State<StudentPlanPage> {
                       color: Colors.grey,
                     ),
                   ),
-                  Text('₹${plan['new']}', style: TextStyle(color: kelp))
+                  Text('₹${plan['new']}', style: TextStyle(color: Color.fromARGB(255, 36, 41, 5)))
                 ],
               ),
             ),
             ElevatedButton(
               onPressed: () {},
-              style: ElevatedButton.styleFrom(backgroundColor: kelp),
+              style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 36, 41, 5)),
               child: Text("ADD"),
             )
           ],
@@ -162,8 +164,8 @@ class _StudentPlanPageState extends State<StudentPlanPage> {
       backgroundColor: starkWhite,
       appBar: AppBar(
         backgroundColor: starkWhite,
-        title: Text('Menu of the Week', style: TextStyle(color: kelp)),
-        iconTheme: IconThemeData(color: kelp),
+        title: Text('Menu of the Week', style: TextStyle(color: Color.fromARGB(255, 36, 41, 5))),
+        iconTheme: IconThemeData(color: Color.fromARGB(255, 36, 41, 5)),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -188,8 +190,8 @@ class _StudentPlanPageState extends State<StudentPlanPage> {
                     setState(() => _currentIndex = index);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _currentIndex == index ? kelp : Colors.white,
-                    foregroundColor: _currentIndex == index ? Colors.white : kelp,
+                    backgroundColor: _currentIndex == index ? Color.fromARGB(255, 36, 41, 5) : Colors.white,
+                    foregroundColor: _currentIndex == index ? Colors.white : Color.fromARGB(255, 36, 41, 5),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   ),
                   child: Text(thaliList[index]['day']!),
@@ -201,7 +203,7 @@ class _StudentPlanPageState extends State<StudentPlanPage> {
               padding: const EdgeInsets.all(12.0),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Meal Plans", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kelp)),
+                child: Text("Meal Plans", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 36, 41, 5))),
               ),
             ),
             ...plans.map(buildPlanCard).toList(),
@@ -211,7 +213,7 @@ class _StudentPlanPageState extends State<StudentPlanPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Why You Need This", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kelp)),
+                  Text("Why You Need This", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 36, 41, 5))),
                   SizedBox(height: 12),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
