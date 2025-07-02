@@ -52,7 +52,7 @@ class DabiteApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginScreen(),
+      home: LoginScreen(),
       routes: {
         '/student-plan': (context) => StudentPlanPage(),
       },
