@@ -22,42 +22,43 @@ class Kitchen {
 
 class KitchensSection extends StatelessWidget {
   final List<Kitchen> kitchens = [
-    Kitchen(
-      name: "Mama's Kitchen",
-      specialty: "North Indian Homestyle",
-      rating: 4.5,
-      deliveryTime: "25-30 mins",
-      emoji: "👩‍🍳",
-      gradient: [Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
-      imagePath: 'assets/images/cook1.avif',
-    ),
-    Kitchen(
-      name: "Delhi Delights",
-      specialty: "Street Food & Chaat",
-      rating: 4.3,
-      deliveryTime: "20-25 mins",
-      emoji: "🏪",
-      gradient: [Color(0xFFFFF9C4), Color(0xFFFFF176)],
-      imagePath: 'assets/images/delhi3.jpg',
-    ),
-    Kitchen(
-      name: "South Spice",
-      specialty: "Authentic South Indian",
-      rating: 4.7,
-      deliveryTime: "30-35 mins",
-      emoji: "🌶️",
-      gradient: [Color(0xFFFFCDD2), Color(0xFFE57373)],
-      imagePath: 'assets/images/south.jpg',
-    ),
-    Kitchen(
-      name: "Punjabi Tadka",
-      specialty: "Punjabi & Tandoor",
-      rating: 4.4,
-      deliveryTime: "25-30 mins",
-      emoji: "🫓",
-      gradient: [Color(0xFFC8E6C9), Color(0xFF81C784)],
-      imagePath: 'assets/images/punjabi.jpg',
-    ),
+   Kitchen(
+  name: "Mama's Kitchen",
+  specialty: "North Indian Homestyle",
+  rating: 4.5,
+  deliveryTime: "25-30 mins",
+  emoji: "👩‍🍳",
+  gradient: [Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
+  imagePath: 'assets/images/cook1.avif', // ✅ EXACT match
+),
+Kitchen(
+  name: "Delhi Delights",
+  specialty: "Street Food & Chaat",
+  rating: 4.3,
+  deliveryTime: "20-25 mins",
+  emoji: "🏪",
+  gradient: [Color(0xFFFFF9C4), Color(0xFFFFF176)],
+  imagePath: 'assets/images/delhi3.jpg', // ✅ EXACT match
+),
+Kitchen(
+  name: "South Spice",
+  specialty: "Authentic South Indian",
+  rating: 4.7,
+  deliveryTime: "30-35 mins",
+  emoji: "🌶️",
+  gradient: [Color(0xFFFFCDD2), Color(0xFFE57373)],
+  imagePath: 'assets/images/south.jpg', // ✅ EXACT match
+),
+Kitchen(
+  name: "Punjabi Tadka",
+  specialty: "Punjabi & Tandoor",
+  rating: 4.4,
+  deliveryTime: "25-30 mins",
+  emoji: "🫓",
+  gradient: [Color(0xFFC8E6C9), Color(0xFF81C784)],
+  imagePath: 'assets/images/punjabi.jpg', // ✅ EXACT match
+),
+
   ];
 
   @override
