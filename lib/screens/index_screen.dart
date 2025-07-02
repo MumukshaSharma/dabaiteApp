@@ -17,10 +17,8 @@ class _IndexScreenState extends State<IndexScreen> {
     });
   }
 
- Widget _buildCategoryCard(String title, String imagePath, VoidCallback onTap) {
-  return InkWell(
-    onTap: onTap,
-    child: Column(
+  Widget _buildCategoryCard(String title, String imagePath) {
+    return Column(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
@@ -41,10 +39,8 @@ class _IndexScreenState extends State<IndexScreen> {
           ),
         ),
       ],
-    ),
-  );
-}
-
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +56,7 @@ class _IndexScreenState extends State<IndexScreen> {
             const SizedBox(height: 12),
 
             // "Specially for You" Section
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: Column(
