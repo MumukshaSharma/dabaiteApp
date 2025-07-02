@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
+import 'screens/login.dart'; // Make sure this file exists
 
 void main() {
-  runApp(const MyApp());
+  runApp(const DabiteApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class DabiteApp extends StatelessWidget {
+  const DabiteApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Image Test',
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Image Asset Test')),
-        body: Center(
-          child: Image.asset(
-            'assets/images/food_bg.png', // Test this image path
-            width: 200,
-            height: 200,
-            errorBuilder: (context, error, stackTrace) {
-              return const Icon(Icons.error_outline, size: 40, color: Colors.red);
-            },
-          ),
-        ),
-      ),
+      title: 'Dabite',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Roboto'),
+      home: LoginScreen(), // ✅ Change this to your actual screen name
     );
   }
 }
