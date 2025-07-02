@@ -13,8 +13,13 @@ class AccountScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 36, 41, 5),
         elevation: 0,
-        leading: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 255, 255, 255)),
-        title: Text('Account', style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255))),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // ✅ Goes back to home page
+          },
+        ),
+        title: const Text('Account', style: TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -32,17 +37,17 @@ class AccountScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: AssetImage('assets/images/profile.jpg'), // Replace with real asset
+                    backgroundImage: AssetImage('assets/images/profile.jpg'),
                   ),
-                  SizedBox(width: 16),
-                  Column(
+                  const SizedBox(width: 16),
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text("Mumuksha",
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 255, 255, 255))),
+                              color: Colors.white)),
                       Text("mumukshasharma504@gmail.com",
                           style: TextStyle(color: Colors.grey)),
                     ],
@@ -50,7 +55,7 @@ class AccountScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Gold Membership
             Container(
@@ -62,8 +67,8 @@ class AccountScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(Icons.verified, color: Colors.white),
                       SizedBox(width: 10),
                       Text("dabite Member",
@@ -71,33 +76,39 @@ class AccountScreen extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: canary,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text("Saved ₹717",
                         style: TextStyle(
-                            color: Color.fromARGB(255, 36, 41, 5), fontWeight: FontWeight.bold)),
+                            color: Color.fromARGB(255, 36, 41, 5),
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
-            // List Options
+            // My Orders - added above Your Coupons
+            _buildListItem(Icons.receipt_long, "My Orders", "3 active"),
+
+            // Coupons & Options
             _buildListItem(Icons.card_giftcard, "Your Coupons", "4 new"),
-            _buildListItem(Icons.system_update, "App Update Available", "v18.39.0", valueColor: const Color.fromARGB(255, 189, 49, 39)),
+            _buildListItem(Icons.system_update, "App Update Available", "v18.39.0",
+                valueColor: const Color.fromARGB(255, 189, 49, 39)),
             _buildListItem(Icons.person, "Your Profile", "100% completed", valueColor: Colors.green),
             _buildListItem(Icons.eco, "Veg Mode", "OFF", valueColor: const Color.fromARGB(255, 39, 39, 39)),
-            _buildListItem(Icons.star, "Show Personalised Results", "OFF", valueColor: const Color.fromARGB(255, 189, 49, 39)),
+            _buildListItem(Icons.star, "Show Personalised Results", "OFF",
+                valueColor: const Color.fromARGB(255, 189, 49, 39)),
 
-            Divider(height: 40, color: const Color.fromARGB(118, 34, 33, 33)),
+            const Divider(height: 40, color: Color.fromARGB(118, 34, 33, 33)),
 
-            // More Options
+            // More Options (updated Help & Support)
             _buildListItem(Icons.info_outline, "About", ""),
             _buildListItem(Icons.feedback_outlined, "Send Feedback", ""),
-            _buildListItem(Icons.warning_amber_rounded, "Report Safety Emergency", ""),
+            _buildListItem(Icons.support_agent, "Help & Support", ""),
             _buildListItem(Icons.settings, "Settings", ""),
             _buildListItem(Icons.logout, "Log out", "", valueColor: Colors.red),
           ],
@@ -115,8 +126,10 @@ class AccountScreen extends StatelessWidget {
           Row(
             children: [
               Icon(icon, color: const Color.fromARGB(255, 36, 41, 5)),
-              SizedBox(width: 12),
-              Text(title, style: TextStyle(color: const Color.fromARGB(255, 36, 41, 5), fontSize: 16)),
+              const SizedBox(width: 12),
+              Text(title,
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 36, 41, 5), fontSize: 16)),
             ],
           ),
           if (value.isNotEmpty)
