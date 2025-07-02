@@ -17,8 +17,10 @@ class _IndexScreenState extends State<IndexScreen> {
     });
   }
 
-  Widget _buildCategoryCard(String title, String imagePath) {
-    return Column(
+ Widget _buildCategoryCard(String title, String imagePath, VoidCallback onTap) {
+  return InkWell(
+    onTap: onTap,
+    child: Column(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
@@ -39,8 +41,10 @@ class _IndexScreenState extends State<IndexScreen> {
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,14 +74,33 @@ class _IndexScreenState extends State<IndexScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildCategoryCard('Students', 'assets/icons/students.jpg'),
-                      _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg'),
-                      _buildCategoryCard('Corporate', 'assets/icons/corporate.avif'),
-                    ],
-                  ),
+                Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: [
+    _buildCategoryCard(
+      'Students',
+      'assets/icons/students.jpg',
+      () {
+        Navigator.pushNamed(context, '/student-plan');
+      },
+    ),
+    _buildCategoryCard(
+      'Elderly',
+      'assets/icons/elderly.jpg',
+      () {
+        // Navigate to elderly page (if any)
+      },
+    ),
+    _buildCategoryCard(
+      'Corporate',
+      'assets/icons/corporate.avif',
+      () {
+        // Navigate to corporate page (if any)
+      },
+    ),
+  ],
+),
+
                 ],
               ),
             ),
