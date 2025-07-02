@@ -307,8 +307,8 @@ class _TopBarState extends State<TopBar> {
                         borderRadius: BorderRadius.circular(50),
                         child: Image.asset(
                           meal['image']!,
-                          width: 70,
-                          height: 70,
+                          width: 100,
+                          height: 100,
                           fit: BoxFit.cover,
                         ),
                       ),
