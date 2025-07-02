@@ -56,31 +56,7 @@ class _IndexScreenState extends State<IndexScreen> {
             const SizedBox(height: 12),
 
             // "Specially for You" Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Specially for You",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF5C7F4D),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildCategoryCard('Students', 'assets/icons/students.jpg'),
-                      _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg'),
-                      _buildCategoryCard('Corporate', 'assets/icons/corporate.avif'),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+
 
             const SizedBox(height: 12),
             KitchensSection(),

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../screens/account.dart'; // Make sure the path is correct
+import '../screens/account.dart';
 
 class TopBar extends StatefulWidget {
   final bool isVeg;
@@ -67,14 +67,14 @@ class _TopBarState extends State<TopBar> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 "Today's Full Menu",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: todaysMenu.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
@@ -114,11 +114,39 @@ class _TopBarState extends State<TopBar> {
     );
   }
 
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Row(
+        children: [
+          const Expanded(
+            child: Divider(color: Colors.grey, thickness: 1),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              title.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 36, 41, 5),
+                letterSpacing: 1,
+              ),
+            ),
+          ),
+          const Expanded(
+            child: Divider(color: Colors.grey, thickness: 1),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Container(
           color: const Color(0xFFFFFDF5),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -129,11 +157,10 @@ class _TopBarState extends State<TopBar> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Location
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Home ▼',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -144,8 +171,9 @@ class _TopBarState extends State<TopBar> {
                       const SizedBox(height: 2),
                       Row(
                         children: [
-                          Icon(Icons.location_pin, color: Color.fromARGB(255, 36, 41, 5), size: 14),
-                          SizedBox(width: 4),
+                          const Icon(Icons.location_pin,
+                              color: Color.fromARGB(255, 36, 41, 5), size: 14),
+                          const SizedBox(width: 4),
                           Text(
                             '1736 Pretorius Street, Arcadia',
                             style: TextStyle(fontSize: 12, color: Colors.grey[700]),
@@ -154,16 +182,15 @@ class _TopBarState extends State<TopBar> {
                       ),
                     ],
                   ),
-
-                  // 👤 Profile Icon → Navigate to AccountScreen
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AccountScreen()),
+                        MaterialPageRoute(builder: (context) => const AccountScreen()),
                       );
                     },
-                    child: const Icon(Icons.person_outline, color: Color.fromARGB(255, 36, 41, 5), size: 26),
+                    child: const Icon(Icons.person_outline,
+                        color: Color.fromARGB(255, 36, 41, 5), size: 26),
                   ),
                 ],
               ),
@@ -174,17 +201,18 @@ class _TopBarState extends State<TopBar> {
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Search dishes or kitchens',
-                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 36, 41, 5)),
+                  prefixIcon:
+                      const Icon(Icons.search, color: Color.fromARGB(255, 36, 41, 5)),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(vertical: 0),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Color(0xFFFFF7E6)),
+                    borderSide: const BorderSide(color: Color(0xFFFFF7E6)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Color(0xFF5C7F4D)),
+                    borderSide: const BorderSide(color: Color(0xFF5C7F4D)),
                   ),
                 ),
               ),
@@ -211,19 +239,20 @@ class _TopBarState extends State<TopBar> {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              // 👥 Specially For You
+              _buildSectionHeader("Specially for You"),
 
-              // 🍽️ Today's Menu
-              Text(
-                "Meal Subscription",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Color.fromARGB(255, 36, 41, 5),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildCategoryCard('Students', 'assets/icons/students.jpg'),
+                  _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg'),
+                  _buildCategoryCard('Corporate', 'assets/icons/corporate.avif'),
+                ],
               ),
 
-              const SizedBox(height: 12),
+              // 🍽️ Meal Subscription
+              _buildSectionHeader("Meal Subscriptions"),
 
               SizedBox(
                 height: 100,
@@ -251,14 +280,13 @@ class _TopBarState extends State<TopBar> {
                             const SizedBox(height: 6),
                             Text(
                               item['name']!,
-                              style: TextStyle(fontSize: 12),
+                              style: const TextStyle(fontSize: 10),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),
                       );
                     } else {
-                      // ➕ View All
                       return GestureDetector(
                         onTap: _showFullMenuSheet,
                         child: Padding(
@@ -268,17 +296,15 @@ class _TopBarState extends State<TopBar> {
                               Container(
                                 width: 60,
                                 height: 60,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Color(0xFFE0E0E0),
                                 ),
-                                child: Icon(Icons.expand_more, color: Colors.black87),
+                                child:
+                                    const Icon(Icons.expand_more, color: Colors.black87),
                               ),
                               const SizedBox(height: 6),
-                              Text(
-                                "View All",
-                                style: TextStyle(fontSize: 12),
-                              ),
+                              const Text("View All", style: TextStyle(fontSize: 12)),
                             ],
                           ),
                         ),
@@ -291,6 +317,27 @@ class _TopBarState extends State<TopBar> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCategoryCard(String title, String imagePath) {
+    return Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.asset(
+            imagePath,
+            width: 70,
+            height: 70,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          title.toUpperCase(),
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
+      ],
     );
   }
 }
