@@ -38,7 +38,7 @@ class _TopBarState extends State<TopBar> {
     {'name': 'Breakfast', 'image': 'assets/meals/breakfast.jpg'},
     {'name': 'Jain Thali', 'image': 'assets/meals/jain_thali.jpeg'},
     {'name': 'Healthy', 'image': 'assets/meals/healthy.webp'},
-    {'name': 'Low Calorie Meals', 'image': 'assets/meals/low_calorie.avif'},
+    {'name': 'Low Calorie Meals', 'image': 'assets/meals/low_calorie2.webp'},
     {'name': 'Protein Meal', 'image': 'assets/meals/protein_meal.png'},
     {'name': 'Salads', 'image': 'assets/meals/salads.jpeg'},
   ];
