@@ -1,259 +1,151 @@
-  import 'package:flutter/material.dart';
-  import '/widgets/top_bar.dart';
-  import '/widgets/kitchens_section.dart';
+import 'package:flutter/material.dart';
+import '/widgets/top_bar.dart';
+import '/widgets/kitchens_section.dart';
 
-  class IndexScreen extends StatefulWidget {
-    @override
-    _IndexScreenState createState() => _IndexScreenState();
+class IndexScreen extends StatefulWidget {
+  @override
+  _IndexScreenState createState() => _IndexScreenState();
+}
+
+class _IndexScreenState extends State<IndexScreen> {
+  bool isVeg = true;
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
-  class _IndexScreenState extends State<IndexScreen> {
-    bool isVeg = true;
-    int _selectedIndex = 0;
-    bool _dialogShown = false;
+  Widget _buildCategoryCard(String title, String imagePath) {
+    return Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.asset(
+            imagePath,
+            height: 80,
+            width: 80,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            color: Color(0xFF4E6746),
+          ),
+        ),
+      ],
+    );
+  }
 
-    @override
-    void didChangeDependencies() {
-      super.didChangeDependencies();
-      if (!_dialogShown) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _showSubscriptionDialog();
-          _dialogShown = true;
-        });
-      }
-    }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 240, 232, 199),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TopBar(
+              isVeg: isVeg,
+              setIsVeg: (val) => setState(() => isVeg = val),
+            ),
+            const SizedBox(height: 12),
 
-    void _onItemTapped(int index) {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
-
-    void _showSubscriptionDialog() {
-      showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return Dialog(
-            backgroundColor: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
+            // "Specially for You" Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius: 14,
-                        child: Icon(Icons.close, size: 16, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
                   const Text(
-                    'Exclusive Offer',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      color: Colors.brown,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Unlimited free deliveries\n& more',
+                    "Specially for You",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      height: 1.3,
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 252, 243, 217),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.workspace_premium, color: Colors.black87),
-                        SizedBox(width: 10),
-                        Text(
-                          '3-month DABITE Gold at just ₹30',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                      color: Color(0xFF5C7F4D),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      // Optional: Navigate to subscription page
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      minimumSize: const Size(double.infinity, 40),
-                    ),
-                    child: const Text(
-                      'Join Gold now',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildCategoryCard('Students', 'assets/icons/students.jpg'),
+                      _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg'),
+                      _buildCategoryCard('Corporate', 'assets/icons/corporate.avif'),
+                    ],
+                  ),
                 ],
               ),
             ),
-          );
-        },
-      );
-    }
-Widget _buildCategoryCard(String title, String imagePath) {
-  return Column(
-    children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Image.asset(
-          imagePath,
-          height: 80,
-          width: 80,
-          fit: BoxFit.cover,
-        ),
-      ),
-      const SizedBox(height: 6),
-      Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 14,
-          color: Color(0xFF4E6746),
-        ),
-      ),
-    ],
-  );
-}
 
+            const SizedBox(height: 12),
+            KitchensSection(),
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 240, 232, 199),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              TopBar(
-  isVeg: isVeg,
-  setIsVeg: (val) => setState(() => isVeg = val),
-),
-const SizedBox(height: 12),
-
-// 👇 Add Specially for You section here
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        "Specially for You",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Color(0xFF5C7F4D),
-        ),
-      ),
-      const SizedBox(height: 12),
-     Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-    _buildCategoryCard('Students', 'assets/icons/students.jpg'),
-    SizedBox(width: 12), // spacing between cards
-    _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg'),
-    SizedBox(width: 12),
-    _buildCategoryCard('Corporate', 'assets/icons/corporate.avif'),
-  ],
-),
-
-    ],
-  ),
-),
-
-const SizedBox(height: 12),
-
-// 👇 Kitchen section remains below
-
-              KitchensSection(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Column(
-                  children: const [
-                    Text(
-                      'Welcome to dabite',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 49, 57, 39),
-                      ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Column(
+                children: const [
+                  Text(
+                    'Welcome to dabite',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 49, 57, 39),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Delicious homemade meals delivered fresh to your door',
-                      style: TextStyle(
-                        color: Color(0xFFA3B18A),
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Delicious homemade meals delivered fresh to your door',
+                    style: TextStyle(
+                      color: Color(0xFFA3B18A),
+                      fontSize: 14,
                     ),
-                  ],
-                ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-              const SizedBox(height: 80),
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          selectedItemColor: const Color.fromARGB(255, 39, 44, 23),
-          unselectedItemColor: const Color.fromARGB(255, 91, 102, 72),
-          selectedLabelStyle: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Poppins',
-          ),
-          unselectedLabelStyle: const TextStyle(
-            fontWeight: FontWeight.normal,
-            fontFamily: 'Poppins',
-          ),
-          items: [
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                'assets/icons/homess.png',
-                width: 24,
-                height: 24,
-              ),
-              label: 'Home',
             ),
-            const BottomNavigationBarItem(
-              icon: SizedBox.shrink(),
-              label: 'Meal Deal',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.receipt),
-              label: 'Orders',
-            ),
+
+            const SizedBox(height: 80),
           ],
         ),
-      );
-    }
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: const Color.fromARGB(255, 39, 44, 23),
+        unselectedItemColor: const Color.fromARGB(255, 91, 102, 72),
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Poppins',
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.normal,
+          fontFamily: 'Poppins',
+        ),
+        items: [
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icons/homess.png',
+              width: 24,
+              height: 24,
+            ),
+            label: 'Home',
+          ),
+          const BottomNavigationBarItem(
+            icon: SizedBox.shrink(),
+            label: 'Meal Deal',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.receipt),
+            label: 'Orders',
+          ),
+        ],
+      ),
+    );
   }
+}
