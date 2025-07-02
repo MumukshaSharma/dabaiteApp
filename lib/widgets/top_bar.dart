@@ -301,7 +301,7 @@ class _TopBarState extends State<TopBar> {
                                   color: Color(0xFFE0E0E0),
                                 ),
                                 child:
-                                    const Icon(Icons.expand_more, color: Colors.black87),
+                                    const Icon(Icons.expand_more, color: Color.fromARGB(255, 36, 41, 5)),
                               ),
                               const SizedBox(height: 6),
                               const Text("View All", style: TextStyle(fontSize: 12)),
@@ -335,7 +335,7 @@ class _TopBarState extends State<TopBar> {
         const SizedBox(height: 6),
         Text(
           title.toUpperCase(),
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
         ),
       ],
     );
