@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../screens/account.dart';
 import '../screens/student_plan_page.dart';
+import '../screens/corporate.dart'; // ✅ Import corporate screen
 
 class TopBar extends StatefulWidget {
   final bool isVeg;
@@ -286,7 +287,16 @@ class _TopBarState extends State<TopBar> {
                     },
                   ),
                   _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg'),
-                  _buildCategoryCard('Corporate', 'assets/icons/corporate.avif'),
+                  _buildCategoryCard(
+                    'Corporate',
+                    'assets/icons/corporate.avif',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CorporatePage()),
+                      );
+                    },
+                  ),
                 ],
               ),
 
