@@ -138,13 +138,13 @@ class _TopBarState extends State<TopBar> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Color(0xFF5C7F4D),
+                          color: Color.fromARGB(255, 36, 41, 5),
                         ),
                       ),
                       const SizedBox(height: 2),
                       Row(
                         children: [
-                          Icon(Icons.location_pin, color: Color(0xFF5C7F4D), size: 14),
+                          Icon(Icons.location_pin, color: Color.fromARGB(255, 36, 41, 5), size: 14),
                           SizedBox(width: 4),
                           Text(
                             '1736 Pretorius Street, Arcadia',
@@ -163,7 +163,7 @@ class _TopBarState extends State<TopBar> {
                         MaterialPageRoute(builder: (context) => AccountScreen()),
                       );
                     },
-                    child: const Icon(Icons.person_outline, color: Color(0xFF5C7F4D), size: 26),
+                    child: const Icon(Icons.person_outline, color: Color.fromARGB(255, 36, 41, 5), size: 26),
                   ),
                 ],
               ),
@@ -174,7 +174,7 @@ class _TopBarState extends State<TopBar> {
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Search dishes or kitchens',
-                  prefixIcon: Icon(Icons.search, color: Color(0xFFA3B18A)),
+                  prefixIcon: Icon(Icons.search, color: Color.fromARGB(255, 36, 41, 5)),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(vertical: 0),
@@ -219,7 +219,7 @@ class _TopBarState extends State<TopBar> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  color: Colors.black87,
+                  color: Color.fromARGB(255, 36, 41, 5),
                 ),
               ),
 
