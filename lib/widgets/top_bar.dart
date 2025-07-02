@@ -31,6 +31,18 @@ class _TopBarState extends State<TopBar> {
     {'name': 'Idli', 'image': 'assets/images/idli.jpg'},
   ];
 
+  final List<Map<String, String>> mealSubscriptions = [
+    {'name': 'Standard Thali', 'image': 'assets/meals/standard_thali.avif'},
+    {'name': 'Deluxe Thali', 'image': 'assets/meals/deluxe_thali.webp'},
+    {'name': 'Special Thali', 'image': 'assets/meals/special_thali.webp'},
+    {'name': 'Breakfast', 'image': 'assets/meals/breakfast.jpg'},
+    {'name': 'Jain Thali', 'image': 'assets/meals/jain_thali.jpeg'},
+    {'name': 'Healthy', 'image': 'assets/meals/healthy.webp'},
+    {'name': 'Low Calorie Meals', 'image': 'assets/meals/low_calorie.avif'},
+    {'name': 'Protein Meal', 'image': 'assets/meals/protein_meal.png'},
+    {'name': 'Salads', 'image': 'assets/meals/salads.jpeg'},
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -140,28 +152,28 @@ class _TopBarState extends State<TopBar> {
   }
 
   Widget _buildCategoryCard(String title, String imagePath, {VoidCallback? onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            imagePath,
-            width: 70,
-            height: 70,
-            fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              imagePath,
+              width: 70,
+              height: 70,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          title.toUpperCase(),
-          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-        ),
-      ],
-    ),
-  );
-}
+          const SizedBox(height: 6),
+          Text(
+            title.toUpperCase(),
+            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -281,64 +293,34 @@ class _TopBarState extends State<TopBar> {
               // 🍽️ Meal Subscription
               _buildSectionHeader("Meal Subscriptions"),
 
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: todaysMenu.length + 1,
-                  itemBuilder: (context, index) {
-                    if (index < todaysMenu.length) {
-                      final item = todaysMenu[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: AssetImage(item['image']!),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              item['name']!,
-                              style: const TextStyle(fontSize: 10),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 3,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                childAspectRatio: 0.85,
+                children: mealSubscriptions.map((meal) {
+                  return Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.asset(
+                          meal['image']!,
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
                         ),
-                      );
-                    } else {
-                      return GestureDetector(
-                        onTap: _showFullMenuSheet,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color(0xFFE0E0E0),
-                                ),
-                                child:
-                                    const Icon(Icons.expand_more, color: Color.fromARGB(255, 36, 41, 5)),
-                              ),
-                              const SizedBox(height: 6),
-                              const Text("View All", style: TextStyle(fontSize: 12)),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        meal['name']!,
+                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  );
+                }).toList(),
               ),
             ],
           ),
