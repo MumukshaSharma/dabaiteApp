@@ -203,7 +203,7 @@ class _TopBarState extends State<TopBar> {
 
               // 🍽️ Today’s Menu
               Text(
-                "Today's Menu",
+                "Meal Subscription",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
