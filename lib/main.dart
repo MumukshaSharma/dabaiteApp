@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/login.dart'; // Make sure this file exists
+import 'screens/index_screen.dart';
+import 'screens/student_plan_page.dart'; // required for routing
 
 void main() {
   runApp(const DabiteApp());
@@ -13,8 +14,10 @@ class DabiteApp extends StatelessWidget {
     return MaterialApp(
       title: 'Dabite',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Roboto'),
-      home: LoginScreen(), // ✅ Change this to your actual screen name
+      home: IndexScreen(),
+      routes: {
+        '/student-plan': (context) => StudentPlanPage(),
+      },
     );
   }
 }

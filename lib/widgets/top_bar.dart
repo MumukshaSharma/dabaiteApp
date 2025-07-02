@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../screens/account.dart';
+import '../screens/student_plan_page.dart';
 
 class TopBar extends StatefulWidget {
   final bool isVeg;
@@ -119,9 +120,7 @@ class _TopBarState extends State<TopBar> {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         children: [
-          const Expanded(
-            child: Divider(color: Colors.grey, thickness: 1),
-          ),
+          const Expanded(child: Divider(color: Colors.grey, thickness: 1)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
@@ -134,13 +133,35 @@ class _TopBarState extends State<TopBar> {
               ),
             ),
           ),
-          const Expanded(
-            child: Divider(color: Colors.grey, thickness: 1),
-          ),
+          const Expanded(child: Divider(color: Colors.grey, thickness: 1)),
         ],
       ),
     );
   }
+
+  Widget _buildCategoryCard(String title, String imagePath, {VoidCallback? onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.asset(
+            imagePath,
+            width: 70,
+            height: 70,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          title.toUpperCase(),
+          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+        ),
+      ],
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +266,13 @@ class _TopBarState extends State<TopBar> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildCategoryCard('Students', 'assets/icons/students.jpg'),
+                  _buildCategoryCard(
+                    'Students',
+                    'assets/icons/students.jpg',
+                    onTap: () {
+                      Navigator.pushNamed(context, '/student-plan');
+                    },
+                  ),
                   _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg'),
                   _buildCategoryCard('Corporate', 'assets/icons/corporate.avif'),
                 ],
@@ -317,27 +344,6 @@ class _TopBarState extends State<TopBar> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildCategoryCard(String title, String imagePath) {
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            imagePath,
-            width: 70,
-            height: 70,
-            fit: BoxFit.cover,
-          ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          title.toUpperCase(),
-          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-        ),
-      ],
     );
   }
 }

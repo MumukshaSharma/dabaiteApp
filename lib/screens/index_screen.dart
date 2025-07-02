@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '/widgets/top_bar.dart';
 import '/widgets/kitchens_section.dart';
 
+
 class IndexScreen extends StatefulWidget {
   @override
   _IndexScreenState createState() => _IndexScreenState();
@@ -57,50 +58,6 @@ class _IndexScreenState extends State<IndexScreen> {
 
             // "Specially for You" Section
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Specially for You",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF5C7F4D),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                Row(
-  mainAxisAlignment: MainAxisAlignment.spaceAround,
-  children: [
-    _buildCategoryCard(
-      'Students',
-      'assets/icons/students.jpg',
-      () {
-        Navigator.pushNamed(context, '/student-plan');
-      },
-    ),
-    _buildCategoryCard(
-      'Elderly',
-      'assets/icons/elderly.jpg',
-      () {
-        // Navigate to elderly page (if any)
-      },
-    ),
-    _buildCategoryCard(
-      'Corporate',
-      'assets/icons/corporate.avif',
-      () {
-        // Navigate to corporate page (if any)
-      },
-    ),
-  ],
-),
-
-                ],
-              ),
-            ),
 
             const SizedBox(height: 12),
             KitchensSection(),

@@ -1,85 +1,85 @@
 import 'package:flutter/material.dart';
+import '/widgets/top_bar.dart';
+import '/widgets/kitchens_section.dart';
 
-class FeedbackScreen extends StatelessWidget {
+class FeedbackScreen extends StatefulWidget {
   const FeedbackScreen({super.key});
+
+  @override
+  State<FeedbackScreen> createState() => _FeedbackScreenState();
+}
+
+class _FeedbackScreenState extends State<FeedbackScreen> {
+  final TextEditingController _feedbackController = TextEditingController();
+  bool isVeg = true;
+
+  @override
+  void dispose() {
+    _feedbackController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     const Color kelp = Color.fromARGB(255, 36, 41, 5);
     const Color canary = Color(0xFFFFF95F);
     const Color starkWhite = Color.fromARGB(255, 242, 236, 219);
+
     return Scaffold(
-      backgroundColor: kelp,
+      backgroundColor: const Color.fromARGB(255, 240, 232, 199),
       appBar: AppBar(
         backgroundColor: kelp,
-        foregroundColor: starkWhite,
-        title: const Text("Send Feedback", style: TextStyle(fontWeight: FontWeight.bold)),
-        elevation: 0,
+        title: const Text('Send Feedback', style: TextStyle(color: Colors.white)),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Tell us what you love about the app, or what we could be doing better.",
-              style: TextStyle(color: starkWhite, fontSize: 15),
+              'We’d love to hear your thoughts!',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: kelp,
+              ),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _feedbackController,
+              maxLines: 6,
+              decoration: InputDecoration(
+                hintText: 'Type your feedback here...',
+                filled: true,
+                fillColor: starkWhite,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+              ),
             ),
             const SizedBox(height: 20),
-            TextField(
-              maxLines: 4,
-              style: const TextStyle(color: starkWhite),
-              decoration: InputDecoration(
-                hintText: 'Enter feedback',
-                hintStyle: const TextStyle(color: Colors.grey),
-                filled: true,
-                fillColor: Colors.black12,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kelp,
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                onPressed: () {
+                  final feedback = _feedbackController.text.trim();
+                  if (feedback.isNotEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Thank you for your feedback!')),
+                    );
+                    _feedbackController.clear();
+                  }
+                },
+                child: const Text('Submit', style: TextStyle(color: Colors.white)),
               ),
-            ),
-            const SizedBox(height: 30),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                children: const [
-                  Icon(Icons.star, color: canary),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Need help with your order?\n",
-                            style: TextStyle(color: starkWhite, fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: "Get instant help from our customer support team.\n",
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                          TextSpan(
-                            text: "Go to order support",
-                            style: TextStyle(color: Colors.redAccent),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: canary,
-                foregroundColor: kelp,
-                minimumSize: const Size.fromHeight(50),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              ),
-              child: const Text("Submit feedback"),
             )
           ],
         ),
