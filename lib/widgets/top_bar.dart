@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../screens/account.dart'; // Make sure the path is correct
 
 class TopBar extends StatefulWidget {
   final bool isVeg;
@@ -124,10 +125,11 @@ class _TopBarState extends State<TopBar> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 📍 Location & Profile
+              // 📍 Location & Profile Row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // Location
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -152,13 +154,23 @@ class _TopBarState extends State<TopBar> {
                       ),
                     ],
                   ),
-                  const Icon(Icons.person_outline, color: Color(0xFF5C7F4D), size: 26),
+
+                  // 👤 Profile Icon → Navigate to AccountScreen
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AccountScreen()),
+                      );
+                    },
+                    child: const Icon(Icons.person_outline, color: Color(0xFF5C7F4D), size: 26),
+                  ),
                 ],
               ),
 
               const SizedBox(height: 14),
 
-              // 🔍 Search bar
+              // 🔍 Search Bar
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Search dishes or kitchens',
@@ -179,7 +191,7 @@ class _TopBarState extends State<TopBar> {
 
               const SizedBox(height: 12),
 
-              // 🖼️ Auto image slider
+              // 🖼️ Auto Slider
               SizedBox(
                 height: 200,
                 width: double.infinity,
@@ -201,7 +213,7 @@ class _TopBarState extends State<TopBar> {
 
               const SizedBox(height: 20),
 
-              // 🍽️ Today’s Menu
+              // 🍽️ Today's Menu
               Text(
                 "Meal Subscription",
                 style: TextStyle(
@@ -246,7 +258,7 @@ class _TopBarState extends State<TopBar> {
                         ),
                       );
                     } else {
-                      // View All
+                      // ➕ View All
                       return GestureDetector(
                         onTap: _showFullMenuSheet,
                         child: Padding(
