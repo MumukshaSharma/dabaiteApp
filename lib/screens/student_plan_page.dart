@@ -21,38 +21,32 @@ class _StudentPlanPageState extends State<StudentPlanPage> {
     {
       'day': 'Mon',
       'menu': 'Chole Masala / Aloo Methi, 3 Chapati, Dal, Steam Rice, 1 Sweet & Salad.',
-      'image': 'assets/menu_monday.jpg'
+      'image': 'assets/images/monday_special_thali.jpg'
     },
     {
       'day': 'Tue',
       'menu': 'Rajma / Mix Veg, 3 Chapati, Dal, Rice, 1 Sweet & Salad.',
-      'image': 'assets/menu_tuesday.jpg'
-    },
+'image': 'assets/images/tuesday_special_thali.jpg'    },
     {
       'day': 'Wed',
       'menu': 'Aloo Gobi / Bharva Baingan, 3 Chapati, Dal, Rice, Sweet & Salad.',
-      'image': 'assets/menu_wednesday.jpg'
-    },
+'image': 'assets/images/wednesday_special_thali.jpg'    },
     {
       'day': 'Thu',
       'menu': 'Lauki Kofta / Bhindi, 3 Chapati, Dal, Rice, Sweet & Salad.',
-      'image': 'assets/menu_thursday.jpg'
-    },
+'image': 'assets/images/thursday_special_thali.jpg'    },
     {
       'day': 'Fri',
       'menu': 'Paneer Butter Masala, 3 Chapati, Dal, Rice, Sweet & Salad.',
-      'image': 'assets/menu_friday.jpg'
-    },
+'image': 'assets/images/friday_special_thali.jpg'    },
     {
       'day': 'Sat',
       'menu': 'Mix Veg / Aloo Jeera, 3 Chapati, Dal, Rice, Sweet & Salad.',
-      'image': 'assets/menu_saturday.jpg'
-    },
+'image': 'assets/images/saturday_special_thali.jpg'    },
     {
       'day': 'Sun',
       'menu': 'Kadhi Pakoda, 3 Chapati, Dal, Rice, Sweet & Salad.',
-      'image': 'assets/menu_sunday.jpg'
-    },
+'image': 'assets/images/sunday_special_thali.jpg'    },
   ];
 
   final List<Map<String, dynamic>> plans = [
