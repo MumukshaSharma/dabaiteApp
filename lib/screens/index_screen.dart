@@ -17,45 +17,13 @@ class _IndexScreenState extends State<IndexScreen> {
     });
 
     if (index == 1) {
-      Navigator.pushNamed(context, '/subscribe');
-    } else if (index == 2) {
       Navigator.pushNamed(context, '/kitchens');
-    }
-
-    if (index == 1) {
-      Navigator.pushNamed(context, '/subscribe');
     } else if (index == 2) {
-      Navigator.pushNamed(context, '/kitchens');
+      Navigator.pushNamed(context, '/subscribe');
     }
   }
 
   Widget _buildCategoryCard(String title, String imagePath, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              imagePath,
-              height: 80,
-              width: 80,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: Color(0xFF4E6746),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -137,32 +105,6 @@ class _IndexScreenState extends State<IndexScreen> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildCategoryCard(
-                        'Students',
-                        'assets/icons/students.jpg',
-                        () {
-                          Navigator.pushNamed(context, '/student-plan');
-                        },
-                      ),
-                      _buildCategoryCard(
-                        'Elderly',
-                        'assets/icons/elderly.jpg',
-                        () {
-                          Navigator.pushNamed(context, '/elderly-plan');
-                        },
-                      ),
-                      _buildCategoryCard(
-                        'Corporate',
-                        'assets/icons/corporate.avif',
-                        () {
-                          Navigator.pushNamed(context, '/corporate-plan');
-                        },
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
@@ -175,7 +117,6 @@ class _IndexScreenState extends State<IndexScreen> {
               child: Column(
                 children: const [
                   Text(
-                    'Welcome to Dabite',
                     'Welcome to Dabite',
                     style: TextStyle(
                       fontSize: 20,
@@ -201,9 +142,6 @@ class _IndexScreenState extends State<IndexScreen> {
         ),
       ),
 
-      // Bottom Navigation Bar
-
-      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -217,21 +155,20 @@ class _IndexScreenState extends State<IndexScreen> {
           fontWeight: FontWeight.normal,
           fontFamily: 'Poppins',
         ),
-       items: [
-  BottomNavigationBarItem(
-    icon: Icon(Icons.view_list), // or any custom icon for 'Plans'
-    label: 'Plans',
-  ),
-  BottomNavigationBarItem(
-    icon: Icon(Icons.kitchen),
-    label: 'Kitchens',
-  ),
-  BottomNavigationBarItem(
-    icon: Icon(Icons.shopping_cart),
-    label: 'Cart',
-  ),
-],
-
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.view_list),
+            label: 'Plans',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.kitchen),
+            label: 'Kitchens',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+        ],
       ),
     );
   }
