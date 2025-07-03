@@ -15,37 +15,41 @@ class _IndexScreenState extends State<IndexScreen> {
     setState(() {
       _selectedIndex = index;
     });
+
+    if (index == 1) {
+      Navigator.pushNamed(context, '/subscribe');
+    } else if (index == 2) {
+      Navigator.pushNamed(context, '/kitchens');
+    }
   }
 
   Widget _buildCategoryCard(String title, String imagePath, VoidCallback onTap) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            imagePath,
-            height: 80,
-            width: 80,
-            fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              imagePath,
+              height: 80,
+              width: 80,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 14,
-            color: Color(0xFF4E6746),
+          const SizedBox(height: 6),
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+              color: Color(0xFF4E6746),
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
-
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,6 @@ class _IndexScreenState extends State<IndexScreen> {
             const SizedBox(height: 12),
 
             // "Specially for You" Section
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: Column(
@@ -76,33 +79,32 @@ class _IndexScreenState extends State<IndexScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                Row(
-  mainAxisAlignment: MainAxisAlignment.spaceAround,
-  children: [
-    _buildCategoryCard(
-      'Students',
-      'assets/icons/students.jpg',
-      () {
-        Navigator.pushNamed(context, '/student-plan');
-      },
-    ),
-    _buildCategoryCard(
-      'Elderly',
-      'assets/icons/elderly.jpg',
-      () {
-        //
-      },
-    ),
-    _buildCategoryCard(
-      'Corporate',
-      'assets/icons/corporate.avif',
-      () {
-        // Navigate to corporate page (if any)
-      },
-    ),
-  ],
-),
-
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildCategoryCard(
+                        'Students',
+                        'assets/icons/students.jpg',
+                        () {
+                          Navigator.pushNamed(context, '/student-plan');
+                        },
+                      ),
+                      _buildCategoryCard(
+                        'Elderly',
+                        'assets/icons/elderly.jpg',
+                        () {
+                          Navigator.pushNamed(context, '/elderly-plan');
+                        },
+                      ),
+                      _buildCategoryCard(
+                        'Corporate',
+                        'assets/icons/corporate.avif',
+                        () {
+                          Navigator.pushNamed(context, '/corporate-plan');
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -115,7 +117,7 @@ class _IndexScreenState extends State<IndexScreen> {
               child: Column(
                 children: const [
                   Text(
-                    'Welcome to dabite',
+                    'Welcome to Dabite',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -139,6 +141,8 @@ class _IndexScreenState extends State<IndexScreen> {
           ],
         ),
       ),
+
+      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -152,24 +156,21 @@ class _IndexScreenState extends State<IndexScreen> {
           fontWeight: FontWeight.normal,
           fontFamily: 'Poppins',
         ),
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icons/homess.png',
-              width: 24,
-              height: 24,
-            ),
-            label: 'Home',
-          ),
-          const BottomNavigationBarItem(
-            icon: SizedBox.shrink(),
-            label: 'Meal Deal',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.receipt),
-            label: 'Orders',
-          ),
-        ],
+       items: [
+  BottomNavigationBarItem(
+    icon: Icon(Icons.view_list), // or any custom icon for 'Plans'
+    label: 'Plans',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.kitchen),
+    label: 'Kitchens',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.shopping_cart),
+    label: 'Cart',
+  ),
+],
+
       ),
     );
   }
