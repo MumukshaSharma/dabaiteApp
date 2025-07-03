@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 const Color kelp = Color.fromARGB(255, 36, 41, 5);
@@ -13,7 +14,21 @@ class CorporatePage extends StatefulWidget {
 
 class _CorporatePageState extends State<CorporatePage> {
   final List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  int selectedIndex = DateTime.now().weekday - 1;
+  int selectedIndex = (DateTime.now().weekday - 1).clamp(0, 6);
+
+  late final PageController _pageController;
+  late final Timer _timer;
+  int _currentPage = 0;
+
+  final List<String> menuImages = [
+    'assets/meals/mond2.jpg',
+    'assets/meals/tues2.jpg',
+    'assets/meals/wed2.jpg',
+    'assets/meals/thurs2.jpg',
+    'assets/meals/fri2.jpg',
+    'assets/meals/sat2.jpg',
+    'assets/meals/sun2.jpg',
+  ];
 
   final List<Map<String, dynamic>> plans = [
     {
@@ -43,6 +58,32 @@ class _CorporatePageState extends State<CorporatePage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPage < menuImages.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: starkWhite,
@@ -65,21 +106,22 @@ class _CorporatePageState extends State<CorporatePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _sectionTitle('Menu of the Week'),
-
             const SizedBox(height: 12),
-
-            _menuCard(),
-
+            SizedBox(
+              height: 300,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: menuImages.length,
+                itemBuilder: (context, index) {
+                  return _imageOnlyCard(menuImages[index]);
+                },
+              ),
+            ),
             const SizedBox(height: 12),
-
             _daySelector(),
-
             const SizedBox(height: 20),
-
             _sectionTitle('Meal Plans'),
-
             const SizedBox(height: 12),
-
             ...plans.map((plan) => _planCard(plan)).toList(),
           ],
         ),
@@ -108,56 +150,21 @@ class _CorporatePageState extends State<CorporatePage> {
     );
   }
 
-  Widget _menuCard() {
+  Widget _imageOnlyCard(String imagePath) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [BoxShadow(blurRadius: 4, color: Colors.black12)],
       ),
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'SUNDAY',
-                  style: TextStyle(
-                    color: Colors.white,
-                    backgroundColor: kelp,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'DELUXE THALI',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: kelp),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  'Gobi Mutter / Mutter Paneer, 3 Chapati, Dal, Steam Rice & Salad.',
-                  style: TextStyle(fontSize: 13, color: Colors.black87),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            flex: 2,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                'assets/images/deluxe_thali_sample.jpg',
-                fit: BoxFit.cover,
-                height: 100,
-              ),
-            ),
-          )
-        ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: 150,
+        ),
       ),
     );
   }
@@ -267,9 +274,7 @@ class _CorporatePageState extends State<CorporatePage> {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             ),
-            onPressed: () {
-              // Handle Add
-            },
+            onPressed: () {},
             child: const Text(
               'ADD',
               style: TextStyle(color: kelp, fontWeight: FontWeight.bold),
