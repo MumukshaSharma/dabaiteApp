@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'screens/student_plan_page.dart';
+import 'screens/kitchen.dart'; // ✅ Import the kitchen detail page
 
 const Color kelp = Color(0xFF242905);
 const Color canary = Color(0xFFFFF95F);
@@ -54,6 +55,7 @@ class DabiteApp extends StatelessWidget {
       home: LoginScreen(),
       routes: {
         '/student-plan': (context) => StudentPlanPage(),
+        '/kitchens': (context) => KitchenScreen(), // ✅ Route added
       },
     );
   }
