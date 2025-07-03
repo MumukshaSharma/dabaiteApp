@@ -17,8 +17,10 @@ class _IndexScreenState extends State<IndexScreen> {
     });
   }
 
-  Widget _buildCategoryCard(String title, String imagePath) {
-    return Column(
+  Widget _buildCategoryCard(String title, String imagePath, VoidCallback onTap) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
@@ -39,8 +41,11 @@ class _IndexScreenState extends State<IndexScreen> {
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +60,52 @@ class _IndexScreenState extends State<IndexScreen> {
             ),
             const SizedBox(height: 12),
 
-            // You can add "Specially for You" section here if needed
+            // "Specially for You" Section
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Specially for You",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF5C7F4D),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: [
+    _buildCategoryCard(
+      'Students',
+      'assets/icons/students.jpg',
+      () {
+        Navigator.pushNamed(context, '/student-plan');
+      },
+    ),
+    _buildCategoryCard(
+      'Elderly',
+      'assets/icons/elderly.jpg',
+      () {
+        //
+      },
+    ),
+    _buildCategoryCard(
+      'Corporate',
+      'assets/icons/corporate.avif',
+      () {
+        // Navigate to corporate page (if any)
+      },
+    ),
+  ],
+),
+
+                ],
+              ),
+            ),
 
             const SizedBox(height: 12),
             KitchensSection(),
@@ -111,13 +161,13 @@ class _IndexScreenState extends State<IndexScreen> {
             ),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions), // Subscription icon
-            label: 'Subscribe',
+          const BottomNavigationBarItem(
+            icon: SizedBox.shrink(),
+            label: 'Meal Deal',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.kitchen), // Kitchen icon
-            label: 'Kitchens',
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.receipt),
+            label: 'Orders',
           ),
         ],
       ),

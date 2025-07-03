@@ -2,7 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../screens/account.dart';
 import '../screens/student_plan_page.dart';
-import '../screens/corporate.dart'; // ✅ Import corporate screen
+import '../screens/corporate.dart';
+import '../screens/elderly_plan_page.dart';
+
+// ✅ Import corporate screen
 
 class TopBar extends StatefulWidget {
   final bool isVeg;
@@ -286,7 +289,14 @@ class _TopBarState extends State<TopBar> {
                       Navigator.pushNamed(context, '/student-plan');
                     },
                   ),
-                  _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg'),
+                  _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg',
+                    onTap: () {
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => const ElderlyPlanPage()),
+                      );
+                    }, 
+                  ),
                   _buildCategoryCard(
                     'Corporate',
                     'assets/icons/corporate.avif',

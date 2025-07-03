@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'screens/student_plan_page.dart';
-import 'screens/elderly_plan_page.dart'; // ✅ Make sure this file exists
-
 const Color kelp = Color(0xFF242905);
 const Color canary = Color(0xFFFFF95F);
 const Color starkWhite = Color(0xFFF2ECDB);
@@ -54,9 +52,9 @@ class DabiteApp extends StatelessWidget {
       ),
       home: LoginScreen(),
       routes: {
-        '/student-plan': (context) => StudentPlanPage(),
-        '/elderly-plan': (context) => ElderlyPlanPage(),
-      },
+  '/student-plan': (context) => StudentPlanPage(),
+},
+
     );
   }
 }
