@@ -3,13 +3,7 @@ import 'package:flutter/material.dart';
 import '../screens/account.dart';
 import '../screens/student_plan_page.dart';
 import '../screens/corporate.dart';
-<<<<<<< HEAD
-import '../screens/elderly_plan_page.dart';
-
-// ✅ Import corporate screen
-=======
 import '../screens/elderly.dart'; // ✅ Import Elderly page
->>>>>>> 26e948250eb83c3d590844c75650c2574a0fa7fb
 
 class TopBar extends StatefulWidget {
   final bool isVeg;
@@ -293,15 +287,6 @@ class _TopBarState extends State<TopBar> {
                       Navigator.pushNamed(context, '/student-plan');
                     },
                   ),
-<<<<<<< HEAD
-                  _buildCategoryCard('Elderly', 'assets/icons/elderly.jpg',
-                    onTap: () {
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => const ElderlyPlanPage()),
-                      );
-                    }, 
-=======
                   _buildCategoryCard(
                     'Elderly',
                     'assets/icons/elderly.jpg',
@@ -311,7 +296,6 @@ class _TopBarState extends State<TopBar> {
                         MaterialPageRoute(builder: (context) => ElderlyPlanPage()),
                       );
                     },
->>>>>>> 26e948250eb83c3d590844c75650c2574a0fa7fb
                   ),
                   _buildCategoryCard(
                     'Corporate',
