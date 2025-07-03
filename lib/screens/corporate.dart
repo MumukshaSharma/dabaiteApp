@@ -14,21 +14,55 @@ class CorporatePage extends StatefulWidget {
 
 class _CorporatePageState extends State<CorporatePage> {
   final List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  int selectedIndex = (DateTime.now().weekday - 1).clamp(0, 6);
+  int selectedIndex = DateTime.now().weekday - 1;
 
   late final PageController _pageController;
   late final Timer _timer;
   int _currentPage = 0;
-
-  final List<String> menuImages = [
-    'assets/meals/mond2.jpg',
-    'assets/meals/tues2.jpg',
-    'assets/meals/wed2.jpg',
-    'assets/meals/thurs2.jpg',
-    'assets/meals/fri2.jpg',
-    'assets/meals/sat2.jpg',
-    'assets/meals/sun2.jpg',
-  ];
+final List<Map<String, String>> menuSlides = [
+  {
+    'day': 'MONDAY',
+    'title': 'Standard Thali',
+    'desc': 'Aloo Gobi, 3 Chapati, Dal, Jeera Rice, Pickle.',
+    'image': 'assets/meals/standard_thali.avif',
+  },
+  {
+    'day': 'TUESDAY',
+    'title': 'Healthy Bowl',
+    'desc': 'Brown Rice, Moong Salad, 2 Chapati, Curd.',
+    'image': 'assets/meals/healthy.webp',
+  },
+  {
+    'day': 'WEDNESDAY',
+    'title': 'Deluxe Thali',
+    'desc': 'Paneer Bhurji, 3 Chapati, Dal Fry, Rice, Salad.',
+    'image': 'assets/meals/deluxe_thali.webp',
+  },
+  {
+    'day': 'THURSDAY',
+    'title': 'Protein Meal',
+    'desc': 'Grilled Paneer, Brown Rice, Sprout Salad.',
+    'image': 'assets/meals/protein_meal.png',
+  },
+  {
+    'day': 'FRIDAY',
+    'title': 'Special Thali',
+    'desc': 'Shahi Paneer, 3 Roti, Dal Makhani, Rice, Sweet.',
+    'image': 'assets/meals/special_thali.webp',
+  },
+  {
+    'day': 'SATURDAY',
+    'title': 'Jain Thali',
+    'desc': 'Lauki Curry, 3 Chapati, Dal, Steamed Rice.',
+    'image': 'assets/meals/jain_thali.jpeg',
+  },
+  {
+    'day': 'SUNDAY',
+    'title': 'Weekend Special',
+    'desc': 'Roti, Aloo-Beans, Rice, Salad, Raita.',
+    'image': 'assets/meals/sun.jpg',
+  },
+];
 
   final List<Map<String, dynamic>> plans = [
     {
@@ -63,7 +97,7 @@ class _CorporatePageState extends State<CorporatePage> {
     _pageController = PageController(initialPage: 0);
 
     _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (_currentPage < menuImages.length - 1) {
+      if (_currentPage < menuSlides.length - 1) {
         _currentPage++;
       } else {
         _currentPage = 0;
@@ -108,12 +142,13 @@ class _CorporatePageState extends State<CorporatePage> {
             _sectionTitle('Menu of the Week'),
             const SizedBox(height: 12),
             SizedBox(
-              height: 300,
+              height: 150,
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: menuImages.length,
+                itemCount: menuSlides.length,
                 itemBuilder: (context, index) {
-                  return _imageOnlyCard(menuImages[index]);
+                  final item = menuSlides[index];
+                  return _buildMenuCard(item);
                 },
               ),
             ),
@@ -150,21 +185,60 @@ class _CorporatePageState extends State<CorporatePage> {
     );
   }
 
-  Widget _imageOnlyCard(String imagePath) {
+  Widget _buildMenuCard(Map<String, String> item) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [BoxShadow(blurRadius: 4, color: Colors.black12)],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Image.asset(
-          imagePath,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: 150,
-        ),
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  color: kelp,
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  child: Text(
+                    item['day']!,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  item['title']!,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: kelp),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  item['desc']!,
+                  style: const TextStyle(fontSize: 13, color: Colors.black87),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            flex: 2,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                item['image']!,
+                fit: BoxFit.cover,
+                height: 100,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
