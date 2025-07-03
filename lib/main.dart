@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'screens/student_plan_page.dart';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26e948250eb83c3d590844c75650c2574a0fa7fb
 const Color kelp = Color(0xFF242905);
 const Color canary = Color(0xFFFFF95F);
 const Color starkWhite = Color(0xFFF2ECDB);
@@ -20,7 +24,7 @@ class DabiteApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Roboto',
         scaffoldBackgroundColor: starkWhite,
-        colorScheme: const ColorScheme(
+        colorScheme: ColorScheme(
           brightness: Brightness.light,
           primary: kelp,
           onPrimary: Colors.white,
@@ -52,9 +56,14 @@ class DabiteApp extends StatelessWidget {
       ),
       home: LoginScreen(),
       routes: {
+<<<<<<< HEAD
   '/student-plan': (context) => StudentPlanPage(),
 },
 
+=======
+        '/student-plan': (context) => StudentPlanPage(),
+      },
+>>>>>>> 26e948250eb83c3d590844c75650c2574a0fa7fb
     );
   }
 }

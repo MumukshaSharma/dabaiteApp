@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 const Color kelp = Color.fromARGB(255, 36, 41, 5);
@@ -14,6 +15,54 @@ class CorporatePage extends StatefulWidget {
 class _CorporatePageState extends State<CorporatePage> {
   final List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   int selectedIndex = DateTime.now().weekday - 1;
+
+  late final PageController _pageController;
+  late final Timer _timer;
+  int _currentPage = 0;
+final List<Map<String, String>> menuSlides = [
+  {
+    'day': 'MONDAY',
+    'title': 'Standard Thali',
+    'desc': 'Aloo Gobi, 3 Chapati, Dal, Jeera Rice, Pickle.',
+    'image': 'assets/meals/standard_thali.avif',
+  },
+  {
+    'day': 'TUESDAY',
+    'title': 'Healthy Bowl',
+    'desc': 'Brown Rice, Moong Salad, 2 Chapati, Curd.',
+    'image': 'assets/meals/healthy.webp',
+  },
+  {
+    'day': 'WEDNESDAY',
+    'title': 'Deluxe Thali',
+    'desc': 'Paneer Bhurji, 3 Chapati, Dal Fry, Rice, Salad.',
+    'image': 'assets/meals/deluxe_thali.webp',
+  },
+  {
+    'day': 'THURSDAY',
+    'title': 'Protein Meal',
+    'desc': 'Grilled Paneer, Brown Rice, Sprout Salad.',
+    'image': 'assets/meals/protein_meal.png',
+  },
+  {
+    'day': 'FRIDAY',
+    'title': 'Special Thali',
+    'desc': 'Shahi Paneer, 3 Roti, Dal Makhani, Rice, Sweet.',
+    'image': 'assets/meals/special_thali.webp',
+  },
+  {
+    'day': 'SATURDAY',
+    'title': 'Jain Thali',
+    'desc': 'Lauki Curry, 3 Chapati, Dal, Steamed Rice.',
+    'image': 'assets/meals/jain_thali.jpeg',
+  },
+  {
+    'day': 'SUNDAY',
+    'title': 'Weekend Special',
+    'desc': 'Roti, Aloo-Beans, Rice, Salad, Raita.',
+    'image': 'assets/meals/sun.jpg',
+  },
+];
 
   final List<Map<String, dynamic>> plans = [
     {
@@ -43,6 +92,32 @@ class _CorporatePageState extends State<CorporatePage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPage < menuSlides.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: starkWhite,
@@ -65,21 +140,23 @@ class _CorporatePageState extends State<CorporatePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _sectionTitle('Menu of the Week'),
-
             const SizedBox(height: 12),
-
-            _menuCard(),
-
+            SizedBox(
+              height: 150,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: menuSlides.length,
+                itemBuilder: (context, index) {
+                  final item = menuSlides[index];
+                  return _buildMenuCard(item);
+                },
+              ),
+            ),
             const SizedBox(height: 12),
-
             _daySelector(),
-
             const SizedBox(height: 20),
-
             _sectionTitle('Meal Plans'),
-
             const SizedBox(height: 12),
-
             ...plans.map((plan) => _planCard(plan)).toList(),
           ],
         ),
@@ -108,8 +185,9 @@ class _CorporatePageState extends State<CorporatePage> {
     );
   }
 
-  Widget _menuCard() {
+  Widget _buildMenuCard(Map<String, String> item) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -122,25 +200,28 @@ class _CorporatePageState extends State<CorporatePage> {
             flex: 3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'SUNDAY',
-                  style: TextStyle(
-                    color: Colors.white,
-                    backgroundColor: kelp,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+              children: [
+                Container(
+                  color: kelp,
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  child: Text(
+                    item['day']!,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
-                  'DELUXE THALI',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: kelp),
+                  item['title']!,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: kelp),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
-                  'Gobi Mutter / Mutter Paneer, 3 Chapati, Dal, Steam Rice & Salad.',
-                  style: TextStyle(fontSize: 13, color: Colors.black87),
+                  item['desc']!,
+                  style: const TextStyle(fontSize: 13, color: Colors.black87),
                 ),
               ],
             ),
@@ -151,7 +232,7 @@ class _CorporatePageState extends State<CorporatePage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.asset(
-                'assets/images/deluxe_thali_sample.jpg',
+                item['image']!,
                 fit: BoxFit.cover,
                 height: 100,
               ),
@@ -267,9 +348,7 @@ class _CorporatePageState extends State<CorporatePage> {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             ),
-            onPressed: () {
-              // Handle Add
-            },
+            onPressed: () {},
             child: const Text(
               'ADD',
               style: TextStyle(color: kelp, fontWeight: FontWeight.bold),
