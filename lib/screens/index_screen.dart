@@ -19,7 +19,7 @@ class _IndexScreenState extends State<IndexScreen> {
     if (index == 1) {
       Navigator.pushNamed(context, '/kitchens');
     } else if (index == 2) {
-      Navigator.pushNamed(context, '/subscribe');
+      Navigator.pushNamed(context, '/cart');
     }
   }
 
