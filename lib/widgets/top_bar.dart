@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../screens/account.dart';
-import '../screens/student_plan_page.dart';
 import '../screens/corporate.dart';
-import '../screens/elderly.dart'; // ✅ Import Elderly page
+import '../screens/elderly.dart'; 
+import '../screens/standard_thali_page.dart';
 
 class TopBar extends StatefulWidget {
   final bool isVeg;
