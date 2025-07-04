@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:dabaite/screens/index_screen.dart';
 import 'package:dabaite/screens/account.dart';
+import 'package:dabaite/screens/cart.dart';
 
 const Color kelp = Color.fromARGB(255, 36, 41, 5);
 const Color canary = Color(0xFFFFF95F);
@@ -22,7 +23,12 @@ class _KitchenScreenState extends State<KitchenScreen> {
     if (index == 0) {
       // ✅ Navigate to IndexScreen using named route
       Navigator.pushReplacementNamed(context, '/index');
-    } else {
+    } else if (index == 2) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CartScreen()),
+    );
+  }  else {
       setState(() {
         _selectedIndex = index;
         // Navigation logic if needed

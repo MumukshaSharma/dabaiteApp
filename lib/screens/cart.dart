@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'index_screen.dart';
+import 'account.dart';
+import 'kitchen.dart';
 
 const Color kelp = Color.fromARGB(255, 36, 41, 5);
 const Color canary = Color(0xFFFFF95F);
@@ -45,11 +47,17 @@ class _CartScreenState extends State<CartScreen> {
 
   void _onItemTapped(int index) {
     if (index == 0) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => IndexScreen()));
+      Navigator.pushReplacementNamed(context, '/index');
+    } else if (index == 1) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const KitchenScreen()),
+    );
+  }  else {
+      setState(() {
+        _selectedIndex = index;
+      });
     }
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 
   @override
@@ -57,12 +65,61 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       backgroundColor: starkWhite,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Top Header without Search Bar
+            Container(
+              color: kelp,
+              padding: const EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Top Row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: const [
+                          Icon(Icons.shopping_cart, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text(
+                            "Cart",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const AccountScreen()),
+                          );
+                        },
+                        child: const CircleAvatar(
+                          backgroundColor: Colors.white24,
+                          child: Icon(Icons.person, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    "710, Balaji Tower 5, Shri Kishanpura, Raj...",
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+
+            // Image Carousel
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30),
+              child: SizedBox(
                 height: 400,
                 child: PageView.builder(
                   controller: _pageController,
@@ -80,8 +137,8 @@ class _CartScreenState extends State<CartScreen> {
                           padding: const EdgeInsets.all(12.0),
                           child: Image.asset(
                             imagePaths[index],
-                            height: 280,
-                            width: 340, // wider image
+                            height: 300,
+                            width: 340,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -90,39 +147,49 @@ class _CartScreenState extends State<CartScreen> {
                   },
                 ),
               ),
-              const SizedBox(height: 32),
-              const Text(
-                'When you order from us, you bring a\nSuper Home Chef\'s dream to life.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: kelp,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: kelp,
-                  padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => IndexScreen()));
-                },
-                child: const Text(
-                  'ORDER NOW',
-                  style: TextStyle(
-                    color: starkWhite,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
+            ),
+
+            // Text and Button
+            Center(
+              child: Column(
+                children: [
+                  const Text(
+                    'When you order from us, you bring a\nSuper Home Chef\'s dream to life.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: kelp,
+                      fontFamily: 'Poppins',
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 32),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kelp,
+                      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/index');
+                    },
+                    child: const Text(
+                      'ORDER NOW',
+                      style: TextStyle(
+                        color: starkWhite,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 50),
+          ],
         ),
       ),
+
+      // Bottom Navigation
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
