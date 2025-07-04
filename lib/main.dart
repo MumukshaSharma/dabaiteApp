@@ -4,6 +4,7 @@ import 'screens/login.dart';
 import 'screens/student_plan_page.dart';
 import 'screens/kitchen.dart';
 import 'screens/cart.dart';
+import 'screens/cartTwo.dart';
 
 const Color kelp = Color(0xFF242905);
 const Color canary = Color(0xFFFFF95F);
@@ -60,6 +61,7 @@ class DabiteApp extends StatelessWidget {
         '/cart': (context) => const CartScreen(),
         '/kitchens': (context) => KitchenScreen(),
         '/index': (context) => IndexScreen(),
+        '/cartTwo': (context) => const CartTwo(),
       },
     );
   }
