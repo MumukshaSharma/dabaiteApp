@@ -310,35 +310,48 @@ class _TopBarState extends State<TopBar> {
               // 🍽️ Meal Subscription
               _buildSectionHeader("Meal Subscriptions"),
 
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                childAspectRatio: 0.85,
-                children: mealSubscriptions.map((meal) {
-                  return Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.asset(
-                          meal['image']!,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        meal['name']!,
-                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  );
-                }).toList(),
-              ),
+GridView.count(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  crossAxisCount: 3,
+  crossAxisSpacing: 20,
+  mainAxisSpacing: 20,
+  childAspectRatio: 0.85,
+  children: mealSubscriptions.map((meal) {
+    return GestureDetector(
+      onTap: () {
+        if (meal['name'] == 'Standard Thali') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const StandardThaliPage(), // ✅ Your target screen
+            ),
+          );
+        }
+        // You can add more conditions for other meals here later
+      },
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.asset(
+              meal['image']!,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            meal['name']!,
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }).toList(),
+)
             ],
           ),
         ),
