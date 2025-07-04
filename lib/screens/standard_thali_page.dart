@@ -9,8 +9,9 @@ class StandardThaliPage extends StatefulWidget {
 
 class _StandardThaliPageState extends State<StandardThaliPage> {
   int selectedDayIndex = 0;
-  int quantity = 1;
-
+  bool showCartPopup = false;
+  bool showMorePopup = false;
+  int quantity = 0;
   final List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   final List<String> menuOfTheWeek = [
     'Aloo Gobi, Dal, 3 Chapati',
@@ -22,7 +23,50 @@ class _StandardThaliPageState extends State<StandardThaliPage> {
     'Special Veg Thali',
   ];
 
-  bool showMoreInfo = false;
+  void _showMoreInfoDialog(String title, String info) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(info),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Close"),
+          )
+        ],
+      ),
+    );
+  }
+
+  void _showCartBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '$quantity Item | ₹${quantity * 390}',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                elevation: 3,
+              ),
+              child: const Text("Go to Cart"),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +81,12 @@ class _StandardThaliPageState extends State<StandardThaliPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'MENU OF THE WEEK',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
-                  color: Colors.grey[800]),
+                  color: Colors.black),
             ),
             const SizedBox(height: 12),
             Container(
@@ -52,7 +96,6 @@ class _StandardThaliPageState extends State<StandardThaliPage> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Column(
@@ -86,24 +129,30 @@ class _StandardThaliPageState extends State<StandardThaliPage> {
               ),
             ),
             const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(days.length, (index) {
-                return ChoiceChip(
-                  label: Text(days[index]),
-                  selected: selectedDayIndex == index,
-                  onSelected: (_) {
-                    setState(() {
-                      selectedDayIndex = index;
-                    });
-                  },
-                  selectedColor: const Color(0xFF242905),
-                  labelStyle: TextStyle(
+            SizedBox(
+              height: 40,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: days.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: ChoiceChip(
+                    label: Text(days[index]),
+                    selected: selectedDayIndex == index,
+                    onSelected: (_) {
+                      setState(() {
+                        selectedDayIndex = index;
+                      });
+                    },
+                    selectedColor: const Color(0xFF242905),
+                    labelStyle: TextStyle(
                       color: selectedDayIndex == index
                           ? Colors.white
-                          : Colors.black),
-                );
-              }),
+                          : Colors.black,
+                    ),
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 20),
             const Text(
@@ -112,60 +161,23 @@ class _StandardThaliPageState extends State<StandardThaliPage> {
             ),
             const SizedBox(height: 12),
             _buildMealCard(
-                title: 'Standard Thali - Trial (3 Days)',
-                oldPrice: '540',
-                newPrice: '390',
-                info: '3 Chapati, 1 Veg Curry'),
-            _buildMealCard(
-                title: 'Standard - Weekly',
-                oldPrice: '899',
-                newPrice: '749',
-                info: '3 Chapati, 1 Veg...'),
-            _buildMealCard(
-                title: 'Standard - Monthly',
-                oldPrice: '3599',
-                newPrice: '2599',
-                info: '3 Chapati, 1 Veg...'),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(color: Color(0xFF4CAF50)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              '$quantity Item | ₹${quantity * 390}',
-              style:
-                  const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              title: 'Standard Thali - Trial (3 Days)',
+              price: '390',
+              info:
+                  '3 Chapati, 1 Veg Curry, Cut Salad included. Delivered hot and fresh.',
             ),
-            Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.white),
-                  onPressed: () {
-                    if (quantity > 1) {
-                      setState(() {
-                        quantity--;
-                      });
-                    }
-                  },
-                ),
-                Text(
-                  '$quantity',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.white),
-                  onPressed: () {
-                    setState(() {
-                      quantity++;
-                    });
-                  },
-                ),
-              ],
-            )
+            _buildMealCard(
+              title: 'Standard Thali - Weekly',
+              price: '749',
+              info:
+                  '3 Chapati, 1 Veg Curry, Cut Salad. 7-day plan with daily variety.',
+            ),
+            _buildMealCard(
+              title: 'Standard Thali - Monthly',
+              price: '2599',
+              info:
+                  '3 Chapati, 1 Veg Curry, Cut Salad. 30 meals. Best value.',
+            ),
           ],
         ),
       ),
@@ -174,49 +186,49 @@ class _StandardThaliPageState extends State<StandardThaliPage> {
 
   Widget _buildMealCard(
       {required String title,
-      required String oldPrice,
-      required String newPrice,
+      required String price,
       required String info}) {
     return Card(
+      elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Row(
-              children: [
-                Text('₹$oldPrice',
-                    style: const TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        color: Colors.grey)),
-                const SizedBox(width: 6),
-                Text('₹$newPrice',
-                    style: const TextStyle(
-                        color: Colors.green, fontWeight: FontWeight.bold)),
-              ],
-            ),
-            const SizedBox(height: 4),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  showMoreInfo = !showMoreInfo;
-                });
-              },
-              child: Text(
-                showMoreInfo ? info : 'read more',
-                style: const TextStyle(color: Colors.green),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black)),
+                  const SizedBox(height: 4),
+                  GestureDetector(
+                    onTap: () => _showMoreInfoDialog(title, info),
+                    child: const Text(
+                      'read more',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 6),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: quantity == 0
+                  ? () {
+                      setState(() => quantity = 1);
+                      _showCartBottomSheet();
+                    }
+                  : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF242905),
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                elevation: 4,
+                side: const BorderSide(color: Color(0xFF242905)),
               ),
               child: const Text('ADD'),
-            )
+            ),
           ],
         ),
       ),
