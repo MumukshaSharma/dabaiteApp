@@ -61,7 +61,7 @@ class DabiteApp extends StatelessWidget {
         '/cart': (context) => const CartScreen(),
         '/kitchens': (context) => KitchenScreen(),
         '/index': (context) => IndexScreen(),
-        '/cartTwo': (context) => const CartTwo(),
+        '/cartTwo': (context) => CartTwo(),
       },
     );
   }
