@@ -16,10 +16,11 @@ class _IndexScreenState extends State<IndexScreen> {
     _selectedIndex = index;
   });
 
-  if (index == 1) {
-    Navigator.pushNamed(context, '/kitchens');
-  } else if (index == 2) {
-    Navigator.pushNamed(context, '/cart');
+    if (index == 1) {
+      Navigator.pushNamed(context, '/kitchens');
+    } else if (index == 2) {
+      Navigator.pushNamed(context, '/cart');
+    }
   }
 }
 

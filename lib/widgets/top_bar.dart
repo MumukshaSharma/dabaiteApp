@@ -39,10 +39,7 @@ class _TopBarState extends State<TopBar> {
     {'name': 'Special Thali', 'image': 'assets/meals/special_thali.webp'},
     {'name': 'Breakfast', 'image': 'assets/meals/breakfast.jpg'},
     {'name': 'Jain Thali', 'image': 'assets/meals/jain_thali.jpeg'},
-    {'name': 'Healthy', 'image': 'assets/meals/healthy.webp'},
-    {'name': 'Low Calorie Meals', 'image': 'assets/meals/low_calorie2.webp'},
-    {'name': 'Protein Meal', 'image': 'assets/meals/protein_meal.png'},
-    {'name': 'Salads', 'image': 'assets/meals/salads.jpeg'},
+    {'name': 'Non-Veg thali', 'image': 'assets/meals/non.jpg.webp'},
   ];
 
   @override

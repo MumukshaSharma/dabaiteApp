@@ -1,7 +1,10 @@
+import 'package:dabaite/screens/index_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'screens/student_plan_page.dart';
-import 'screens/kitchen.dart'; // ✅ Import the kitchen detail page
+import 'screens/kitchen.dart';
+import 'screens/cart.dart';
+import 'screens/cartTwo.dart';
 
 const Color kelp = Color(0xFF242905);
 const Color canary = Color(0xFFFFF95F);
@@ -55,7 +58,10 @@ class DabiteApp extends StatelessWidget {
       home: LoginScreen(),
       routes: {
         '/student-plan': (context) => StudentPlanPage(),
-        '/kitchens': (context) => KitchenScreen(), // ✅ Route added
+        '/cart': (context) => const CartScreen(),
+        '/kitchens': (context) => KitchenScreen(),
+        '/index': (context) => IndexScreen(),
+        '/cartTwo': (context) => CartTwo(),
       },
     );
   }
