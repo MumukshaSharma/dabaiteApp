@@ -1,4 +1,6 @@
+// keep your imports
 import 'package:flutter/material.dart';
+import 'package:dabaite/screens/index_screen.dart'; // ✅ This should already be in place
 
 const Color kelp = Color.fromARGB(255, 36, 41, 5);
 const Color canary = Color(0xFFFFF95F);
@@ -13,6 +15,19 @@ class KitchenScreen extends StatefulWidget {
 
 class _KitchenScreenState extends State<KitchenScreen> {
   bool isVeg = true;
+  int _selectedIndex = 1; // Set default to Kitchens tab
+
+  void _onItemTapped(int index) {
+    if (index == 0) {
+    // ✅ Navigate to IndexScreen using named route
+    Navigator.pushReplacementNamed(context, '/index');
+  }  else {
+    setState(() {
+      _selectedIndex = index;
+      // Navigation logic if needed
+    });
+  }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +43,14 @@ class _KitchenScreenState extends State<KitchenScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 🔹 Top Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: const [
-                          Icon(Icons.home, color: Colors.white),
+                          Icon(Icons.kitchen, color: Colors.white),
                           SizedBox(width: 8),
-                          Text("Home", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                          Text("Kitchens", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
                         ],
                       ),
                       const CircleAvatar(
@@ -46,10 +60,9 @@ class _KitchenScreenState extends State<KitchenScreen> {
                     ],
                   ),
                   const SizedBox(height: 5),
-                  const Text("710, Balaji Tower 5, Shri Kishanpura, Raj...", style: TextStyle(color: Colors.white70, fontSize: 14)),
+                  const Text("710, Balaji Tower 5, Shri Kishanpura, Raj...",
+                      style: TextStyle(color: Colors.white70, fontSize: 14)),
                   const SizedBox(height: 15),
-
-                  // 🔹 Search + Toggle Row
                   Row(
                     children: [
                       Expanded(
@@ -101,11 +114,9 @@ class _KitchenScreenState extends State<KitchenScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
-
-                  // 🔹 Offers
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: const [
                       _OfferCard(title: "Meals at ₹99", icon: Icons.fastfood, color: Colors.black),
                       _OfferCard(title: "Fast Food Delivery", icon: Icons.bolt, color: Colors.orange),
                       _OfferCard(title: "Flat ₹200 OFF", icon: Icons.percent, color: canary),
@@ -114,10 +125,7 @@ class _KitchenScreenState extends State<KitchenScreen> {
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
-
-            // 🔹 Family Kitchens Near You
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text("Family Kitchens Near You", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kelp)),
@@ -133,14 +141,10 @@ class _KitchenScreenState extends State<KitchenScreen> {
                   _HorizontalKitchenCard(name: "Shruti's Kitchen", cuisine: "Maharashtrian, Punjabi", distance: "3.3 Kms", rating: "4.4"),
                   _HorizontalKitchenCard(name: "Balaji Foods", cuisine: "Punjabi, South Indian", distance: "4 Kms", rating: "4.0"),
                   _HorizontalKitchenCard(name: "Meena Kitchen", cuisine: "Maharashtrian, South Indian", distance: "6.1 Kms", rating: "4.5"),
-                  _HorizontalKitchenCard(name: "Mangy's Kitchen", cuisine: "Bengali, South Indian", distance: "6.7 Kms", rating: "4.7"),
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
-
-            // 🔹 Explore Family Kitchens
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text("Explore Family Kitchens", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kelp)),
@@ -152,13 +156,41 @@ class _KitchenScreenState extends State<KitchenScreen> {
                 children: const [
                   _KitchenCard(name: "Balaji Foods", cuisine: "Maharashtrian, Punjabi, South Indian", distance: "4 Kms", rating: "4.0"),
                   _KitchenCard(name: "Meena Kitchen", cuisine: "Maharashtrian, South Indian", distance: "6.1 Kms", rating: "4.5"),
-                  _KitchenCard(name: "Mangy's Kitchen", cuisine: "Maharashtrian, Punjabi, Bengali, South Indian", distance: "6.7 Kms", rating: "4.7"),
-                  _KitchenCard(name: "Pankti Gharcha Swad", cuisine: "Maharashtrian, South Indian", distance: "7 Kms", rating: "5.0"),
+                  _KitchenCard(name: "Mangy's Kitchen", cuisine: "Bengali, South Indian", distance: "6.7 Kms", rating: "4.7"),
                 ],
               ),
             ),
+            const SizedBox(height: 80),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: const Color.fromARGB(255, 39, 44, 23),
+        unselectedItemColor: const Color.fromARGB(255, 91, 102, 72),
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Poppins',
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.normal,
+          fontFamily: 'Poppins',
+        ),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.view_list),
+            label: 'Plans',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.kitchen),
+            label: 'Kitchens',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+        ],
       ),
     );
   }

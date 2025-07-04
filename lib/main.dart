@@ -1,3 +1,4 @@
+import 'package:dabaite/screens/index_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'screens/student_plan_page.dart';
@@ -54,8 +55,9 @@ class DabiteApp extends StatelessWidget {
       ),
       home: LoginScreen(),
       routes: {
-        '/student-plan': (context) => StudentPlanPage(),
-        '/kitchens': (context) => KitchenScreen(), // ✅ Route added
+  '/student-plan': (context) => StudentPlanPage(),
+  '/kitchens': (context) => KitchenScreen(),
+  '/index': (context) => IndexScreen(),
       },
     );
   }
