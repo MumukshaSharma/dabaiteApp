@@ -65,52 +65,105 @@ class _IndexScreenState extends State<IndexScreen> {
             const SizedBox(height: 12),
 
             // "Specially for You" Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Specially for You",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF5C7F4D),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildCategoryCard(
-                        'Students',
-                        'assets/icons/students.jpg',
-                        () {
-                          Navigator.pushNamed(context, '/student-plan');
-                        },
-                      ),
-                      _buildCategoryCard(
-                        'Elderly',
-                        'assets/icons/elderly.jpg',
-                        () {
-                          Navigator.pushNamed(context, '/elderly-plan');
-                        },
-                      ),
-                      _buildCategoryCard(
-                        'Corporate',
-                        'assets/icons/corporate.avif',
-                        () {
-                          Navigator.pushNamed(context, '/corporate-plan');
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       const Text(
+            //         "Specially for You",
+            //         style: TextStyle(
+            //           fontSize: 18,
+            //           fontWeight: FontWeight.bold,
+            //           color: Color(0xFF5C7F4D),
+            //         ),
+            //       ),
+            //       const SizedBox(height: 12),
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //         children: [
+            //           _buildCategoryCard(
+            //             'Students',
+            //             'assets/icons/students.jpg',
+            //             () {
+            //               Navigator.pushNamed(context, '/student-plan');
+            //             },
+            //           ),
+            //           _buildCategoryCard(
+            //             'Elderly',
+            //             'assets/icons/elderly.jpg',
+            //             () {
+            //               Navigator.pushNamed(context, '/elderly-plan');
+            //             },
+            //           ),
+            //           _buildCategoryCard(
+            //             'Corporate',
+            //             'assets/icons/corporate.avif',
+            //             () {
+            //               Navigator.pushNamed(context, '/corporate-plan');
+            //             },
+            //           ),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
-            const SizedBox(height: 12),
-            KitchensSection(),
+            // const SizedBox(height: 12),
+            // KitchensSection(),
+
+// Padding(
+//   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+//   child: Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       const Text(
+//         "Why Choose Dabite?",
+//         style: TextStyle(
+//           fontSize: 22,
+//           fontWeight: FontWeight.bold,
+//           color: Color(0xFF242905),
+//           letterSpacing: 0.5,
+//         ),
+//       ),
+//       const SizedBox(height: 12),
+//       GridView.count(
+//         shrinkWrap: true,
+//         physics: NeverScrollableScrollPhysics(),
+//         crossAxisCount: 2,
+//         mainAxisSpacing: 16,
+//         crossAxisSpacing: 16,
+//         childAspectRatio: 1,
+//         children: const [
+//           _BenefitCard(
+//             icon: Icons.home_filled,
+//             title: "Homestyle Meals",
+//             subtitle: "Tastes like home, every bite comforting.",
+//           ),
+//           _BenefitCard(
+//             icon: Icons.health_and_safety,
+//             title: "Nutritious & Fresh",
+//             subtitle: "No compromise on quality or health.",
+//           ),
+//           _BenefitCard(
+//             icon: Icons.subscriptions,
+//             title: "Affordable Plans",
+//             subtitle: "Budget-friendly daily meal plans.",
+//           ),
+//           _BenefitCard(
+//             icon: Icons.emoji_people,
+//             title: "Made by Locals",
+//             subtitle: "Support home chefs & small kitchens.",
+//           ),
+//         ],
+//       ),
+//     ],
+//   ),
+// ),
+const WhyChooseDabite(),
+
+
+
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
@@ -173,3 +226,124 @@ class _IndexScreenState extends State<IndexScreen> {
     );
   }
 }
+class _BenefitCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+
+  const _BenefitCard({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFFDFBF3),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 6,
+            offset: Offset(2, 3),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(
+            backgroundColor: Color(0xFFE4EAC6),
+            child: Icon(icon, color: Color(0xFF242905)),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 15,
+              color: Color(0xFF242905),
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 13,
+              color: Color(0xFF5C6B44),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+class WhyChooseDabite extends StatelessWidget {
+  const WhyChooseDabite({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const kelp = Color.fromARGB(255, 36, 41, 5);
+    const starkWhite = Color.fromARGB(255, 242, 236, 219);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Why Choose Dabite?",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: kelp,
+            ),
+          ),
+          const SizedBox(height: 16),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final cardWidth = (constraints.maxWidth - 24) / 2;
+              final cardHeight = 160.0;
+              final aspectRatio = cardWidth / cardHeight;
+
+              return GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                childAspectRatio: aspectRatio,
+                children: const [
+                  _BenefitCard(
+                    icon: Icons.home_filled,
+                    title: "Homestyle Meals",
+                    subtitle: "Tastes like home, every bite comforting.",
+                  ),
+                  _BenefitCard(
+                    icon: Icons.health_and_safety,
+                    title: "Nutritious & Fresh",
+                    subtitle: "No compromise on quality or health.",
+                  ),
+                  _BenefitCard(
+                    icon: Icons.subscriptions,
+                    title: "Affordable Plans",
+                    subtitle: "Budget-friendly daily meal plans.",
+                  ),
+                  _BenefitCard(
+                    icon: Icons.emoji_people,
+                    title: "Made by Locals",
+                    subtitle: "Support home chefs & small kitchens.",
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
