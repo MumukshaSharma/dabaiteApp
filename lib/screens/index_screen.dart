@@ -12,9 +12,9 @@ class _IndexScreenState extends State<IndexScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-  setState(() {
-    _selectedIndex = index;
-  });
+    setState(() {
+      _selectedIndex = index;
+    });
 
     if (index == 1) {
       Navigator.pushNamed(context, '/kitchens');
@@ -22,8 +22,6 @@ class _IndexScreenState extends State<IndexScreen> {
       Navigator.pushNamed(context, '/cart');
     }
   }
-}
-
 
   Widget _buildCategoryCard(String title, String imagePath, VoidCallback onTap) {
     return GestureDetector(
@@ -143,7 +141,7 @@ class _IndexScreenState extends State<IndexScreen> {
           ],
         ),
       ),
-      // Bottom Navigation Bar
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -157,20 +155,20 @@ class _IndexScreenState extends State<IndexScreen> {
           fontWeight: FontWeight.normal,
           fontFamily: 'Poppins',
         ),
-       items: [
-  BottomNavigationBarItem(
-    icon: Icon(Icons.view_list), // or any custom icon for 'Plans'
-    label: 'Plans',
-  ),
-  BottomNavigationBarItem(
-    icon: Icon(Icons.kitchen),
-    label: 'Kitchens',
-  ),
-  BottomNavigationBarItem(
-    icon: Icon(Icons.shopping_cart),
-    label: 'Cart',
-  ),
-],
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.view_list),
+            label: 'Plans',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.kitchen),
+            label: 'Kitchens',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+        ],
       ),
     );
   }
