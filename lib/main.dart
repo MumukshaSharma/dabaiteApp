@@ -6,19 +6,18 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 const Color kelp = Color(0xFF242905);
 const Color canary = Color(0xFFFFF95F);
 const Color starkWhite = Color(0xFFF2ECDB);
-
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(
-    url: 'https://dxvoikklgumxjtprrwij.supabase.co',     // ← Paste your actual Supabase URL
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4dm9pa2tsZ3VteGp0cHJyd2lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2NjM4MjAsImV4cCI6MjA2NzIzOTgyMH0.LJeDSctmvrpvsSLPnww3ORnJaQ3NDcBOs8HM4Ut3Ego',                   // ← Paste your anon public key
+    url: 'https://dxvoikklgumxjtprrwij.supabase.co', // ← put your project’s URL here
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4dm9pa2tsZ3VteGp0cHJyd2lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2NjM4MjAsImV4cCI6MjA2NzIzOTgyMH0.LJeDSctmvrpvsSLPnww3ORnJaQ3NDcBOs8HM4Ut3Ego',                   // ← put your anon key here
   );
-
-  print('✅ Supabase connected succesfully');
-
+    print('✅ Supabase connected successfully!');
+    
   runApp(const DabiteApp());
 }
+
 
 class DabiteApp extends StatelessWidget {
   const DabiteApp({super.key});

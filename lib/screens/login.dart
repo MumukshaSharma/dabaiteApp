@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import './index_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends StatelessWidget {
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF4), // Light background
+      backgroundColor: const Color(0xFFF9FAF4),
       body: SafeArea(
         child: Column(
           children: [
-            // Top section with food background
+            // Top Section
             Expanded(
               flex: 3,
               child: Stack(
@@ -22,7 +23,7 @@ class LoginScreen extends StatelessWidget {
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/food_bg.png'), // Your image
+                        image: AssetImage('assets/images/food_bg.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -42,7 +43,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
 
-            // Bottom login UI
+            // Bottom Login UI
             Expanded(
               flex: 4,
               child: Padding(
@@ -59,48 +60,43 @@ class LoginScreen extends StatelessWidget {
                     const Text("Log in or sign up", textAlign: TextAlign.center),
                     const SizedBox(height: 16),
 
-                    // Phone input
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Text("+91 🇮🇳"),
+                    // Email input
+                    TextField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        hintText: "Enter Email Address",
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none,
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: TextField(
-                            controller: phoneController,
-                            keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
-                              hintText: "Enter Phone Number",
-                              filled: true,
-                              fillColor: Colors.grey.shade100,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
+
                     const SizedBox(height: 20),
 
                     // Continue button
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => IndexScreen()),
-                        );
+                      onPressed: () async {
+                        final email = emailController.text.trim();
+                        if (email.isEmpty) return;
+
+                        try {
+                          await Supabase.instance.client.auth.signInWithOtp(email: email);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("📩 Check your email for login link")),
+                          );
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("❌ Login failed: $e")),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFFD300), // Canary Yellow
-                        foregroundColor: const Color(0xFF355E3B), // Kelp Green text
+                        backgroundColor: const Color(0xFFFFD300),
+                        foregroundColor: const Color(0xFF355E3B),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
