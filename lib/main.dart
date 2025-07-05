@@ -1,16 +1,22 @@
-import 'package:dabaite/screens/index_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'screens/student_plan_page.dart';
-import 'screens/kitchen.dart';
-import 'screens/cart.dart';
-import 'screens/cartTwo.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 const Color kelp = Color(0xFF242905);
 const Color canary = Color(0xFFFFF95F);
 const Color starkWhite = Color(0xFFF2ECDB);
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://dxvoikklgumxjtprrwij.supabase.co',     // ← Paste your actual Supabase URL
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4dm9pa2tsZ3VteGp0cHJyd2lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2NjM4MjAsImV4cCI6MjA2NzIzOTgyMH0.LJeDSctmvrpvsSLPnww3ORnJaQ3NDcBOs8HM4Ut3Ego',                   // ← Paste your anon public key
+  );
+
+  print('✅ Supabase connected succesfully');
+
   runApp(const DabiteApp());
 }
 
@@ -31,8 +37,6 @@ class DabiteApp extends StatelessWidget {
           onPrimary: Colors.white,
           secondary: canary,
           onSecondary: kelp,
-          background: starkWhite,
-          onBackground: kelp,
           surface: Colors.white,
           onSurface: kelp,
           error: Colors.red,
@@ -58,10 +62,6 @@ class DabiteApp extends StatelessWidget {
       home: LoginScreen(),
       routes: {
         '/student-plan': (context) => StudentPlanPage(),
-        '/cart': (context) => const CartScreen(),
-        '/kitchens': (context) => KitchenScreen(),
-        '/index': (context) => IndexScreen(),
-        '/cartTwo': (context) => CartTwo(),
       },
     );
   }
