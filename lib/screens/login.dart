@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './index_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -84,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                         if (email.isEmpty) return;
 
                         try {
-                          await Supabase.instance.client.auth.signInWithOtp(email: email);
+                          await supabase.Supabase.instance.client.auth.signInWithOtp(email: email);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("📩 Check your email for login link")),
                           );
