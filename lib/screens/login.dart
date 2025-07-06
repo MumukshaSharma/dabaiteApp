@@ -1,11 +1,29 @@
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/material.dart';
 import './index_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
+import 'dart:async'; // NEW
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
 
-  LoginScreen({super.key});
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +65,27 @@ class LoginScreen extends StatelessWidget {
             Expanded(
               flex: 4,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const Text(
                       "India’s #1 Home-style Meal Delivery App",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 24),
-                    const Text("Log in or sign up", textAlign: TextAlign.center),
+                    const Text(
+                      "Log in or sign up",
+                      textAlign: TextAlign.center,
+                    ),
                     const SizedBox(height: 16),
-
-                    // Email input
                     TextField(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -74,24 +99,23 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 20),
-
-                    // Continue button
                     ElevatedButton(
                       onPressed: () async {
                         final email = emailController.text.trim();
                         if (email.isEmpty) return;
 
                         try {
-                          await supabase.Supabase.instance.client.auth.signInWithOtp(email: email);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("📩 Check your email for login link")),
+                          await Supabase.instance.client.auth.signInWithOtp(
+                            email: email,
+                            emailRedirectTo:
+                                'io.supabase.flutter://login-callback',
+                          );
+                          _showMessage(
+                            "📩 Check your email for the login link",
                           );
                         } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("❌ Login failed: $e")),
-                          );
+                          _showMessage("❌ Login failed: $e");
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -102,9 +126,11 @@ class LoginScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text("Continue", style: TextStyle(fontSize: 16)),
+                      child: const Text(
+                        "Continue",
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
-
                     const SizedBox(height: 16),
                     const Row(
                       children: [
@@ -117,14 +143,15 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 12),
-
-                    // Social buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircleAvatar(
                           backgroundColor: Colors.grey.shade200,
-                          child: Image.asset('assets/icons/google.png', height: 24),
+                          child: Image.asset(
+                            'assets/icons/google.png',
+                            height: 24,
+                          ),
                         ),
                         const SizedBox(width: 20),
                         CircleAvatar(
@@ -133,30 +160,36 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 20),
-
-                    // Terms
                     const Text.rich(
                       TextSpan(
                         text: 'By continuing, you agree to our ',
                         children: [
                           TextSpan(
-                              text: 'Terms of Service',
-                              style: TextStyle(decoration: TextDecoration.underline)),
+                            text: 'Terms of Service',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
                           TextSpan(text: ', '),
                           TextSpan(
-                              text: 'Privacy Policy',
-                              style: TextStyle(decoration: TextDecoration.underline)),
+                            text: 'Privacy Policy',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
                           TextSpan(text: ', and '),
                           TextSpan(
-                              text: 'Content Policy',
-                              style: TextStyle(decoration: TextDecoration.underline)),
+                            text: 'Content Policy',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
                         ],
                       ),
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12, color: Colors.grey),
-                    )
+                    ),
                   ],
                 ),
               ),
