@@ -14,6 +14,7 @@ Future<void> main() async {
     url: 'https://dxvoikklgumxjtprrwij.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4dm9pa2tsZ3VteGp0cHJyd2lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2NjM4MjAsImV4cCI6MjA2NzIzOTgyMH0.LJeDSctmvrpvsSLPnww3ORnJaQ3NDcBOs8HM4Ut3Ego',                   // ← put your anon key here
   );
+  runApp(const DabiteApp());
 
 
 }
