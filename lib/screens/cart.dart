@@ -49,11 +49,11 @@ class _CartScreenState extends State<CartScreen> {
     if (index == 0) {
       Navigator.pushReplacementNamed(context, '/index');
     } else if (index == 1) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const KitchenScreen()),
-    );
-  }  else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const KitchenScreen()),
+      );
+    } else {
       setState(() {
         _selectedIndex = index;
       });
@@ -71,7 +71,12 @@ class _CartScreenState extends State<CartScreen> {
             // Top Header without Search Bar
             Container(
               color: kelp,
-              padding: const EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 20),
+              padding: const EdgeInsets.only(
+                top: 50,
+                left: 20,
+                right: 20,
+                bottom: 20,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -97,7 +102,9 @@ class _CartScreenState extends State<CartScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const AccountScreen()),
+                            MaterialPageRoute(
+                              builder: (context) => const AccountScreen(),
+                            ),
                           );
                         },
                         child: const CircleAvatar(
@@ -166,11 +173,17 @@ class _CartScreenState extends State<CartScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: kelp,
-                      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 36,
+                        vertical: 16,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/index');
+                      // Navigate to Kitchen screen
+                      Navigator.pushReplacementNamed(context, '/kitchens');
                     },
                     child: const Text(
                       'ORDER NOW',
@@ -204,14 +217,8 @@ class _CartScreenState extends State<CartScreen> {
           fontFamily: 'Poppins',
         ),
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.view_list),
-            label: 'Plans',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.kitchen),
-            label: 'Kitchens',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.view_list), label: 'Plans'),
+          BottomNavigationBarItem(icon: Icon(Icons.kitchen), label: 'Kitchens'),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Cart',

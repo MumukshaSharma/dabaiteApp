@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
+import 'screens/kitchen.dart';
+import 'screens/cart.dart';
+import 'screens/cartTwo.dart';
+import 'screens/index_screen.dart';
 import 'screens/student_plan_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
@@ -10,15 +14,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await supabase.Supabase.initialize(
-
     url: 'https://dxvoikklgumxjtprrwij.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4dm9pa2tsZ3VteGp0cHJyd2lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2NjM4MjAsImV4cCI6MjA2NzIzOTgyMH0.LJeDSctmvrpvsSLPnww3ORnJaQ3NDcBOs8HM4Ut3Ego',                   // ← put your anon key here
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4dm9pa2tsZ3VteGp0cHJyd2lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2NjM4MjAsImV4cCI6MjA2NzIzOTgyMH0.LJeDSctmvrpvsSLPnww3ORnJaQ3NDcBOs8HM4Ut3Ego', // ← put your anon key here
   );
-   runApp(const DabiteApp());
-
-
+  runApp(const DabiteApp());
 }
-
 
 class DabiteApp extends StatelessWidget {
   const DabiteApp({super.key});
@@ -59,9 +60,13 @@ class DabiteApp extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginScreen(),
+      home: IndexScreen(),
       routes: {
         '/student-plan': (context) => StudentPlanPage(),
+        '/kitchens': (context) => KitchenScreen(), // Make sure this exists
+        '/cart': (context) => CartScreen(),
+        '/index': (context) => IndexScreen(),
+        '/cartTwo': (context) => const CartTwo(),
       },
     );
   }
