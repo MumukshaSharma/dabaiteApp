@@ -1,4 +1,4 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 import 'package:flutter/material.dart';
 import './index_screen.dart';
 import 'dart:async'; // NEW
@@ -12,10 +12,35 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
-
+ final _supabase = supabase.Supabase.instance.client; // Add this line
+  StreamSubscription? _authSubscription;
+   @override
+  void initState() {
+    super.initState();
+    _handleDeepLink(); // Add this
+  }
+   Future<void> _handleDeepLink() async {
+    // Check if user is already logged in
+    final session = _supabase.auth.currentSession;
+    if (session != null && mounted) {
+      _navigateToHome();
+      return;
+    }
+     _authSubscription = _supabase.auth.onAuthStateChange.listen((data) {
+      if (data.event == supabase.AuthChangeEvent.signedIn && mounted) {
+        _navigateToHome();
+      }
+    });
+  }
+    void _navigateToHome() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => IndexScreen()),
+    );
+  }
   @override
   void dispose() {
     emailController.dispose();
+     _authSubscription?.cancel(); // Cancel the subscription
     super.dispose();
   }
 
@@ -106,16 +131,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (email.isEmpty) return;
 
                         try {
-                          await Supabase.instance.client.auth.signInWithOtp(
-                            email: email,
-                            emailRedirectTo:
-                                'io.supabase.flutter://login-callback',
-                          );
+                          await _supabase.auth.signInWithOtp(
+        email: email,
+        emailRedirectTo: 'io.supabase.flutter://login-callback/',
+      );
                           _showMessage(
                             "📩 Check your email for the login link",
                           );
-                        } catch (e) {
-                          _showMessage("❌ Login failed: $e");
+                        }  catch (e) {
+      _showMessage("❌ Login failed: ${e.toString()}");
                         }
                       },
                       style: ElevatedButton.styleFrom(
